@@ -7,7 +7,7 @@ __pycache__/
 .history/
 .*/
 build/
-pyhelper.egg-info/
+nanocode38-pyhelper.egg-info/
 *.log
 *.tmp
 *.bat

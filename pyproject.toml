@@ -25,7 +25,6 @@ classifiers = [
 dependencies = [
     "pygame",
     "numba",
-    "pywin32>=311",
 ]
 urls = { repository = "https://github.com/nanocode38/pyhelper.git" }
 

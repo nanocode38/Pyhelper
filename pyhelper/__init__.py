@@ -56,14 +56,12 @@ from pathlib import Path
 from typing import Any, Callable, Generator
 
 __author__ = "nanocode38"
-__version__ = "2.7.0"
+__version__ = "3.0.0"
 __all__ = [
     "get_version",
     "file_reopen",
     "chdir",
-    "create_shortcut",
     "join_startup",
-    "get_startup_dir",
     "system",
     "Singleton",
     "timer",
@@ -188,50 +186,6 @@ def file_reopen(file_obj, stream=sys.stdout) -> Generator[None, Any, None]:
         sys.stderr = original_stream
     else:
         raise ValueError("Invalid stream specified")
-
-
-# This function is outdated, please do not use new projects
-def create_shortcut(target: Path | str, shortcut_name: str, shortcut_location: Path | str) -> None:
-    """
-    This function is outdated, please do not use new projects
-    Creates a shortcut to the specified target file.
-
-    Args:
-        target: Full path to the target file.
-        shortcut_name: Name for the shortcut.
-        shortcut_location: Location for the shortcut.
-    """
-    import win32com.client
-
-    target = os.path.abspath(target)
-    shell = win32com.client.Dispatch("WScript.Shell")  # Create WScript.Shell object
-    shortcut = shell.CreateShortCut(os.path.join(shortcut_location, shortcut_name + ".lnk"))  # Create shortcut object
-    shortcut.TargetPath = target  # Specify target path
-    shortcut.WorkingDirectory = os.path.dirname(target)  # Set working directory
-    shortcut.save()  # Save shortcut
-
-
-def get_startup_dir() -> Path:
-    """
-    A function for obtaining the start-up directory
-
-    Returns:
-        A string for the start-up directory
-    """
-    if platform.system() == "Windows":
-        from win32com.shell import shell, shellcon
-
-        dir_path = Path(shell.SHGetFolderPath(0, shellcon.CSIDL_STARTUP, 0, 0))
-        return dir_path
-    elif platform.system() == "Darwin":
-        home_dir = Path(os.path.expanduser("~"))
-        return home_dir / "Library" / "StartupItems"
-    elif platform.system() == "Linux":
-        # Linux 通常使用 .config/autostart 目录
-        home_dir = Path(os.path.expanduser("~"))
-        return home_dir / ".config" / "autostart"
-    else:
-        raise OSError("Unsupported platform")
 
 
 def join_startup(target: Path | str, *args, **kwargs) -> bool:
