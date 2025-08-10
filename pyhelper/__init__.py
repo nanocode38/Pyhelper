@@ -44,6 +44,7 @@ Copyright (C)
 By nanocode38 nanocode38@88.com
 2025.03.02
 """
+import abc
 import functools
 import multiprocessing
 import os
@@ -51,6 +52,7 @@ import platform
 import subprocess
 import sys
 from abc import ABC
+import inspect
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Generator
@@ -66,13 +68,13 @@ __all__ = [
     "Singleton",
     "timer",
     "tail_recursive_optimization",
-
     "gamehelpers",
     "color",
     "mathhelper",
     "tkhelper",
     "random",
     "namespace",
+    "readonly_attr"
 ]
 
 
@@ -487,7 +489,75 @@ def tail_recursive_optimization(func):
     return wrapper
 
 
+def _getattr(origin, **kwargs):
+    @functools.wraps(origin)
+    def __getattr__(self, name):
+        if name in kwargs.keys():
+            return kwargs[name]
+        return origin(self, name)
+    return __getattr__
+
+def _setattr(origin, **kwargs):
+    @functools.wraps(origin)
+    def __setattr__(self, name, value):
+        if name in kwargs.keys():
+            raise AttributeError(f"Readonly attribute {name}")
+        origin(self, name, value)
+    return __setattr__
+
+def _dir(origin, **kwargs):
+    @functools.wraps(origin)
+    def __dir__(self):
+        return origin(self) + list(kwargs.keys())
+
+
+
+def readonly_attr(**kwargs):
+    """
+    Class decorator, used to set read-only attributes. Pass the attribute name and value through keyword parameters
+
+    Args:
+        **kwargs: Set of parameters used to set read-only attributes
+
+    Examples:
+        >>> @readonly_attr(a='a', b=[1, 2])
+        ... class Span:
+        ...     def __init__(self):
+        ...         self.c = 1
+        ...         self.d = 2
+        ...     def __getattr__(self, item):
+        ...         if item == 'w':
+        ...             return self.c
+        ...         return self.__dict__[item]
+        ...
+        >>> span = Span()
+        >>> span.w
+        1
+        >>> span.c, span.d
+        (1, 2)
+        >>> span.a, span.b
+        ('a', [1, 2])
+        >>> span.a = 'b'
+        Traceback (most recent call last):
+        ...
+        AttributeError: Readonly attribute a
+        >>> span.a
+        'a'
+        >>> span.b = 'b'
+        Traceback (most recent call last):
+        ...
+        AttributeError: Readonly attribute b
+        >>> span.b
+        [1, 2]
+    """
+    def wrapper(cls):
+        cls.__setattr__ = _setattr(cls.__setattr__, **kwargs)
+        cls.__getattribute__ = _getattr(cls.__getattribute__, **kwargs)
+        cls.__dir__ = _dir(cls.__dir__, **kwargs)
+        return cls
+    return wrapper
+
 if __name__ == "__main__":
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.ELLIPSIS)
