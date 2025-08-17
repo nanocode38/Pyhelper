@@ -44,7 +44,6 @@ Copyright (C)
 By nanocode38 nanocode38@88.com
 2025.03.02
 """
-import abc
 import functools
 import multiprocessing
 import os
@@ -52,7 +51,6 @@ import platform
 import subprocess
 import sys
 from abc import ABC
-import inspect
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Generator
@@ -74,7 +72,11 @@ __all__ = [
     "tkhelper",
     "random",
     "namespace",
-    "readonly_attr"
+    "readonly_attr",
+    "Assert",
+    "endl",
+    "cout",
+    "cerr",
 ]
 
 
@@ -612,6 +614,26 @@ class Assert:
             exception = self.exception
         if not expression:
             raise exception
+
+class _CStream:
+    _cnt = 0
+    def __init__(self, file):
+        if self._cnt >= 2:
+            raise RuntimeError("Only two instance of _CStream can be created")
+        self._cnt += 1
+        self.file = file
+
+    def __lshift__(self, other):
+        print(str(other), end='', file=self.file)
+        return self
+
+    def __repr__(self):
+        return f"{self.__name__}({self.file})"
+
+cout = _CStream(sys.stdout)
+cerr = _CStream(sys.stderr)
+endl = '\n'
+
 
 if __name__ == "__main__":
     import doctest
