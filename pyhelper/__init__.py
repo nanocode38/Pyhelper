@@ -557,6 +557,62 @@ def readonly_attr(**kwargs):
         return cls
     return wrapper
 
+class Assert:
+    """
+    Assertion class, used to assert expressions. If the expression is False, raise the specified exception.
+
+    Args:
+        exception (Exception, optional): Exception class to be raised. Defaults to AssertionError.
+        msg (str, optional): Exception message. Defaults to ''.
+
+    Examples:
+        >>> assert_ = Assert()
+        >>> assert_(True)
+        >>> assert_(False)
+        Traceback (most recent call last):
+        ...
+        AssertionError
+        >>> assert_(1 == 2, exception=Exception)
+        Traceback (most recent call last):
+        ...
+        Exception
+        >>> assert_(1 == 2, exception=AssertionError("1 is not equal to 2"))
+        Traceback (most recent call last):
+        ...
+        AssertionError: 1 is not equal to 2
+        >>> assert_(1 == 2, exception=Exception("1 is not equal to 2"))
+        Traceback (most recent call last):
+        ...
+        Exception: 1 is not equal to 2
+        >>> assert_ = Assert(RuntimeError)
+        >>> assert_(1 == 2)
+        Traceback (most recent call last):
+        ...
+        RuntimeError
+        >>> assert_(1 == 2, exception=RuntimeError('1 is not equal to 2'))
+        Traceback (most recent call last):
+        ...
+        RuntimeError: 1 is not equal to 2
+        >>> assert_(1 == 2, exception=Exception("1 is not equal to 2"))
+        Traceback (most recent call last):
+        ...
+        Exception: 1 is not equal to 2
+        >>> assert_ = Assert(RuntimeError('2 is not equal to 3'))
+        >>> assert_(2 == 3)
+        Traceback (most recent call last):
+        ...
+        RuntimeError: 2 is not equal to 3
+        >>> assert(5 == 5.0)
+    """
+    def __init__(self, exception=AssertionError):
+        self.exception = exception
+
+    def __call__(self, expression, exception=None):
+        if exception is None:
+            exception = self.exception
+        if not expression:
+            raise exception
+
 if __name__ == "__main__":
     import doctest
 

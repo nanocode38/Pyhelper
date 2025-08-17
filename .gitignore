@@ -5,6 +5,7 @@ __pycache__/
 .vscode/
 .mypy_catch/
 .history/
+*.egg-info/
 .*/
 build/
 nanocode38-pyhelper.egg-info/
