@@ -23,8 +23,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
-    "pygame",
     "numba",
+    "pygame",
 ]
 urls = { repository = "https://github.com/nanocode38/pyhelper.git" }
 
