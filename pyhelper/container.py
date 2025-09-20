@@ -34,7 +34,8 @@ import bisect
 from typing import Any
 
 __all__ = [
-    'SortedList'
+    'SortedList',
+    'SortedTuple'
 ]
 
 class SortedList(UserList):
@@ -251,6 +252,34 @@ class SortedList(UserList):
             other: Elements that need to be inserted
        """
        self.add(other)
+
+class SortedTuple(tuple):
+    """
+    A sorted list class that inherits from tuple.
+
+    Its main function is to sort tuples during initialization and maintain the order of tuples.
+    The construction method of this primitive ancestor is the same as tuple, but the tuples will be sorted during initialization.
+    All elements in this ancestor must be hashable, otherwise a TypeError exception will be thrown
+
+    Examples:
+        >>> sorted_tuple = SortedTuple([3, 1, 2])
+        >>> sorted_tuple
+        SortedTuple([1, 2, 3])
+        >>> SortedTuple([1, [2], 3])
+        Traceback (most recent call last):
+            ...
+        TypeError: SortedTuple elements must be hashable
+    """
+    def __new__(cls, items):
+        for item in items:
+            try:
+                hash(item)
+            except TypeError:
+                raise TypeError("SortedTuple elements must be hashable")
+        return super().__new__(cls, sorted(items))
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}([{super().__repr__()[1:-1]}])"
 
 
 
