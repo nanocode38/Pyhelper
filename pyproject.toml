@@ -20,11 +20,13 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
     "numba",
-    "pygame",
+    "pygame>=2.6.1; python_version < '3.14'",
+    "pygame-ce>=2.5.7; python_version >= '3.14'",
 ]
 urls = { repository = "https://github.com/nanocode38/pyhelper.git" }
 

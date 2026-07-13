@@ -70,7 +70,7 @@ __all__ = [
     "color",
     "mathhelper",
     "tkhelper",
-    "random",
+    "custom_random",
     "namespace",
     "readonly_attr",
     "Assert",
@@ -634,8 +634,135 @@ cout = _CStream(sys.stdout)
 cerr = _CStream(sys.stderr)
 endl = '\n'
 
+def auto_decorate(func):
+    """
+    Decorator that allows a decorator factory to be used as a simple decorator without explicit calling.
+
+    When a decorator factory (a function that returns a decorator) is decorated with `@auto_decorate`,
+    it can be applied to functions without explicit parentheses. For example, `@spam` is equivalent
+    to `@spam()` when using `@auto_decorate`.
+
+    This is particularly useful when the decorator factory has optional parameters with default values,
+    allowing for cleaner and more readable decorator syntax.
+
+    Examples:
+        >>> @auto_decorate
+        ... def spam(abc=True):
+        ...     def egg(func):
+        ...         def wrapper(*args, **kwargs):
+        ...             print("ABC is", str(abc))
+        ...             return func(*args, **kwargs)
+        ...         return wrapper
+        ...     return egg
+        ...
+        >>> @spam
+        ... def hello(name="World"):
+        ...     print(f"Hello {name}!")
+        ...
+        >>> hello()
+        ABC is True
+        Hello World!
+        >>> hello("Bob")
+        ABC is True
+        Hello Bob!
+        >>> @spam(False)
+        ... def hello(name="World"):
+        ...     print(f"Hello {name}!")
+        ...
+        >>> hello()
+        ABC is False
+        Hello World!
+        >>> hello("Guido")
+        ABC is False
+        Hello Guido!
+
+    """
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if len(args) == 1 and len(kwargs) == 0 and callable(args[0]):
+            return func()(args[0])
+        else:
+            return func(*args, **kwargs)
+    return wrapper
+
+
+@auto_decorate
+def type_assert(*args, dynamic_using: bool = True, **kwargs):
+    """
+    The decorator enforces type checking on the parameters passed to the function. See the parameters below.
+    When no parameters about type checking are passed in,
+    the function type annotation will be automatically read for checking.
+
+    Args:
+        *args: Positionally determine the type of a parameter for inspection
+        dynamic_using: Keyword parameter, indicating whether to automatically turn off type checking when in
+        optimization mode (adding -O or -OO parameters). The default value is True.
+        **kwargs: Provide parameter names and types for inspection
+
+    Raises:
+        TypeError: If any of the arguments do not match the expected types.
+
+    Examples:
+        >>> @type_assert(int, b=str)
+        ... def add(a, b):
+        ...     return a + int(b)
+        ...
+        >>> add(1, 2)
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument b must be of type str!
+        >>> add("1", "2")
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument a must be of type int!
+        >>> add(1, "2")
+        3
+        >>> add("1", 2)
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument a must be of type int!
+        >>> @type_assert
+        ... def sub(a: int, b: str):
+        ...     return a - int(b)
+        ...
+        >>> sub(1, "2")
+        -1
+        >>> sub("1", 2)
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument a must be of type int!
+    """
+    _no_args = (not args and not kwargs)
+    def _type_assert_decorate(func):
+        nonlocal kwargs
+        if _no_args:
+            kwargs = func.__annotations__
+
+        # If in dynamic mode and in optimized mode, disable type checking
+        if dynamic_using and not __debug__:
+            return func
+
+        from inspect import signature
+
+        # Map function arguments names to supplied types
+        sig = signature(func)
+        bound_types = sig.bind_partial(*args, **kwargs).arguments
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            bound_values = sig.bind(*args, **kwargs)
+            # Enforce type assertions across supplied args
+            for name, value in bound_values.arguments.items():
+                if name in bound_types:
+                    if not isinstance(value, bound_types[name]):
+                        raise TypeError(f"Argument {name} must be of type {bound_types[name].__name__}!")
+            return func(*args, **kwargs)
+        return wrapper
+    return _type_assert_decorate
+
 
 if __name__ == "__main__":
+    if os.path.exists('pyhelper'):
+        os.chdir('pyhelper')
     import doctest
 
-    doctest.testmod(optionflags=doctest.ELLIPSIS)
+    doctest.testmod(optionflags=doctest.ELLIPSIS, verbose=True)
