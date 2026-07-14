@@ -79,7 +79,11 @@ __all__ = [
     "cout",
     "cerr",
     "get_annotation",
-    "auto_decorate"
+    "auto_decorate",
+    "AutoInitAttrMixin",
+    "init_cls_attr_from_locals",
+    "Typed",
+    "Descriptor"
 ]
 
 
@@ -791,6 +795,156 @@ def type_assert(*args, dynamic_using: bool = True, **kwargs):
 
     return _type_assert_decorate
 
+class AutoInitAttrMixin:
+    """
+    一个自动将__init__()中参数自动赋值给属性的Mixin类
+    通过定义_fields类属性, 指定__init__()方法的参数。
+    __init__()方法支持位置参数和关键字参数, 其中位置参数必须与_fields中的参数顺序一致, 而关键字参数名称必须与_fields中的参数名称一致。
+    位置参数将首先占据_fields中的参数, 如果位置参数不足, 则关键字参数将被用于填充_fields中的参数。,其他关键字参数将被忽略。
+    副作用: 使用这个Mixin类会导致类的元数据与理想的不一致, 致使获取函数签名或使用IDE的自动补全功能时, 会显示错误的参数信息。
+    要解决此问题, 可以使用pyhelper.init_cls_attr_from_locals()函数来初始化类的属性, 但这个函数使用了frame back机制, 效率有所降低
+
+    A Mixin class that automatically assigns parameters in __init__() to attributes
+    By defining the _fields class attribute, specify the parameters of the __init__() method.
+    The __init__() method supports positional parameters and keyword parameters.
+    The positional parameters must be in the same order as the parameters in _fields,
+    and the keyword parameter names must be consistent with the parameter names in _fields.
+    Positional parameters will first occupy the parameters in _fields. If there are insufficient positional parameters,
+    keyword parameters will be used to fill the parameters in _fields. ,other keyword arguments will be ignored.
+
+    *Side effects*
+    Using this Mixin class will cause the metadata of the class to be inconsistent with the ideal,
+    causing incorrect parameter information to be displayed when obtaining function signatures or using the IDE's auto-completion function.
+    To solve this problem, you can use the pyhelper.init_cls_attr_from_locals() function to initialize the attributes of the class,
+    but this function uses the frame back mechanism, which reduces the efficiency.
+
+    Examples:
+        >>> class Example(AutoInitAttrMixin):
+        ...     _fields = ["a", "b", "c"]
+        ...     def __init__(self, a, b, c):
+        ...         super().__init__(a, b, c)
+        ...
+        >>> example = Example(1, 2, c=3)
+        >>> example.a
+        1
+        >>> example.b
+        2
+        >>> example.c
+        3
+        >>> class Example2(AutoInitAttrMixin):
+        ...     _fields = ["a", "b", "c"]
+        ...
+        >>> example2 = Example2(1, 2, b=3)
+        Traceback (most recent call last):
+        ...
+        TypeError: Expected 3 arguments!
+        """
+    # Class variable that specifies expected fields
+    _fields = []
+    def __init__(self, *args, **kwargs):
+        args = list(args)
+        for name in self._fields[len(args):]:
+            if name in kwargs:
+                args.append(kwargs[name])
+        if len(args) != len(self._fields):
+            raise TypeError("Expected %d arguments!" % len(self._fields))
+
+        # Set the arguments
+        for name, value in zip(self._fields, args):
+            setattr(self, name, value)
+
+def init_cls_attr_from_locals(self):
+    """
+    A function that automatically assigns values to attributes based on the parameters of the __init__() method
+    This function uses the frame back mechanism, and the efficiency is reduced. If you are pursuing efficiency,
+    you can use the pyhelper.AutoInitAttrMixin class to automatically assign parameters.
+    You need to call the function() method in the __init__() method and pass in the self parameter
+    Args:
+        self: The current instance object, used to set properties
+
+    Examples:
+        >>> class Example:
+        ...     def __init__(self, a, b, c):
+        ...         init_cls_attr_from_locals(self)
+        ...
+        >>> example = Example(1, 2, c=3)
+        >>> example.a
+        1
+        >>> example.b
+        2
+        >>> example.c
+        3
+        >>> example2 = Example(a=1, b=2, c=3)
+        >>> example2.a
+        1
+        >>> example2.b
+        2
+        >>> example2.c
+        3
+    """
+    locs = sys._getframe(1).f_locals
+    for key, value in locs.items():
+        if key != 'self':
+            setattr(self, key, value)
+
+
+class Descriptor:
+    """
+    A simple descriptor class that stores attributes dynamically.
+
+    This base descriptor stores the attribute name and accepts additional
+    options as keyword arguments. When a value is set on an instance,
+    it stores the value in the instance's __dict__ using the descriptor's name.
+
+    Args:
+        name: The attribute name to use for storage in instance __dict__.
+        **opts: Additional options to set as attributes on the descriptor.
+
+    Example:
+        >>> class MyClass:
+        ...     value = Descriptor('value')
+        >>> obj = MyClass()
+        >>> obj.value = 42
+        >>> obj.value
+        42
+    """
+    def __init__(self, name=None, **opts):
+        self.name = name
+        for key, value in opts.items():
+            setattr(self, key, value)
+
+    def __set__(self, instance, value):
+        instance.__dict__[self.name] = value
+
+class Typed(Descriptor):
+    """
+    A descriptor that enforces type checking on assigned values.
+
+    Inherits from Descriptor and adds type validation. When a value is assigned,
+    it checks if the value is an instance of expected_type before storing it.
+
+    Raises:
+        TypeError: If the assigned value is not an instance of expected_type.
+
+    Example:
+        >>> class IntField(Typed):
+        ...     expected_type = int
+        >>> class MyClass:
+        ...     count = IntField('count')
+        >>> obj = MyClass()
+        >>> obj.count = 10
+        >>> obj.count
+        10
+        >>> obj.count = 'hello'
+        Traceback (most recent call last):
+            ...
+        TypeError: Expected int!
+    """
+    expected_type = type(None)
+    def __set__(self, instance, value):
+        if not isinstance(value, self.expected_type):
+            raise TypeError("Expected %s!" % self.expected_type.__name__)
+        super().__set__(instance, value)
 
 if __name__ == "__main__":
     if os.path.exists("pyhelper"):
