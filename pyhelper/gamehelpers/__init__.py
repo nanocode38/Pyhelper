@@ -26,6 +26,7 @@
 A library that provides game help without dependencies
 Copyright (C)
 """
+
 import time
 import tkinter as tk
 from typing import *

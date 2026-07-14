@@ -44,8 +44,8 @@ Copyright (C)
 By nanocode38 nanocode38@88.com
 2025.03.02
 """
+
 import functools
-import multiprocessing
 import os
 import platform
 import subprocess
@@ -54,6 +54,7 @@ from abc import ABC
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Generator
+from types import FrameType
 
 __author__ = "nanocode38"
 __version__ = "3.0.0"
@@ -77,17 +78,19 @@ __all__ = [
     "endl",
     "cout",
     "cerr",
+    "get_annotation",
+    "auto_decorate"
 ]
 
 
 if __name__ != "__main__":
     print(f"PyHelper {__version__}", end=" ")
-    os_type = platform.system()
-    if os_type == "Windows":
+    os_name = platform.system()
+    if os_name == "Windows":
         print("(Microsoft Windows,", end=" ")
-    elif os_type == "Darwin":  # macOS
+    elif os_name == "Darwin":  # macOS
         print("(MacOS,", end=" ")
-    elif os_type == "Linux":
+    elif os_name == "Linux":
         print("(Linux,", end=" ")
     else:
         print("(Unknown OS,", end=" ", file=sys.stderr)
@@ -95,7 +98,7 @@ if __name__ != "__main__":
     print(f"{sys.version_info[2]})")
     print("Hello from the PyHelper community!", end=" ")
     print("https://githun.com/nanocode38/pyhelper.git")
-    if os_type not in ("Windows", "Darwin", "Linux"):
+    if os_name not in ("Windows", "Darwin", "Linux"):
         print("Warning: Unknown OS, some functions may not work properly.", file=sys.stderr)
 
 
@@ -194,7 +197,7 @@ def file_reopen(file_obj, stream=sys.stdout) -> Generator[None, Any, None]:
         raise ValueError("Invalid stream specified")
 
 
-def join_startup(target: Path | str, *args, **kwargs) -> bool:
+def join_startup(target: Path, *args, **kwargs) -> bool:
     """
     Add a file to startup on Windows, macOS, or Linux.
 
@@ -213,13 +216,24 @@ def join_startup(target: Path | str, *args, **kwargs) -> bool:
         - macOS: Creates Launch Agent plist in ~/Library/LaunchAgents
         - Linux: Creates systemd user service or .desktop file
     """
+    # Prompts the user that the args and kwargs parameters have been abandoned.
+    # It is recommended to use the target parameter directly.
+    if args or kwargs:
+        import warnings
+
+        warnings.warn(
+            "args and kwargs parameters are deprecated and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
     # Convert to absolute path and verify existence
     target = os.path.abspath(target)
     if not os.path.exists(target):
         print(f"Error: File not found at {target}", file=sys.stderr)
         return False
 
-    os_type = platform.system()
+    os_type: str = platform.system()
     try:
         if os_type == "Windows":
             return _windows_startup(target)
@@ -261,7 +275,7 @@ def _windows_startup(file_path: str) -> bool:
 def _macos_startup(file_path: str) -> bool:
     """macOS implementation using LaunchAgent"""
     plist_content = f"""<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>Label</key>
@@ -344,9 +358,9 @@ def system(command: str, nonblocking: bool = False) -> int:
         exit code
     """
     if not nonblocking:
-        return os.system(command)
+        return subprocess.run(command, shell=True).returncode
     else:
-        multiprocessing.Process(target=os.system, args=(command,)).start()
+        subprocess.Popen(command, shell=True)
         return 0
 
 
@@ -356,7 +370,7 @@ def get_annotation():
         A decorator to simulate annotations in Java. This decorator is temporal
     """
 
-    def annotation(func, *args, **kwargs):
+    def annotation(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
@@ -476,7 +490,7 @@ def tail_recursive_optimization(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        frame = sys._getframe()
+        frame: FrameType = sys._getframe()
         # Check whether the grandfather stack frame (f_back.f_back) of the current stack frame is the same as the current function
         if frame.f_back and frame.f_back.f_back and frame.f_back.f_back.f_code == frame.f_code:
             raise TailRecurseException(args, kwargs)
@@ -497,7 +511,9 @@ def _getattr(origin, **kwargs):
         if name in kwargs.keys():
             return kwargs[name]
         return origin(self, name)
+
     return __getattr__
+
 
 def _setattr(origin, **kwargs):
     @functools.wraps(origin)
@@ -505,13 +521,16 @@ def _setattr(origin, **kwargs):
         if name in kwargs.keys():
             raise AttributeError(f"Readonly attribute {name}")
         origin(self, name, value)
+
     return __setattr__
+
 
 def _dir(origin, **kwargs):
     @functools.wraps(origin)
     def __dir__(self):
         return origin(self) + list(kwargs.keys())
 
+    return __dir__
 
 
 def readonly_attr(**kwargs):
@@ -552,12 +571,15 @@ def readonly_attr(**kwargs):
         >>> span.b
         [1, 2]
     """
+
     def wrapper(cls):
         cls.__setattr__ = _setattr(cls.__setattr__, **kwargs)
         cls.__getattribute__ = _getattr(cls.__getattribute__, **kwargs)
         cls.__dir__ = _dir(cls.__dir__, **kwargs)
         return cls
+
     return wrapper
+
 
 class Assert:
     """
@@ -565,7 +587,6 @@ class Assert:
 
     Args:
         exception (Exception, optional): Exception class to be raised. Defaults to AssertionError.
-        msg (str, optional): Exception message. Defaults to ''.
 
     Examples:
         >>> assert_ = Assert()
@@ -606,6 +627,7 @@ class Assert:
         RuntimeError: 2 is not equal to 3
         >>> assert(5 == 5.0)
     """
+
     def __init__(self, exception=AssertionError):
         self.exception = exception
 
@@ -615,8 +637,10 @@ class Assert:
         if not expression:
             raise exception
 
+
 class _CStream:
     _cnt = 0
+
     def __init__(self, file):
         if self._cnt >= 2:
             raise RuntimeError("Only two instance of _CStream can be created")
@@ -624,15 +648,17 @@ class _CStream:
         self.file = file
 
     def __lshift__(self, other):
-        print(str(other), end='', file=self.file)
+        print(str(other), end="", file=self.file)
         return self
 
     def __repr__(self):
         return f"{self.__name__}({self.file})"
 
+
 cout = _CStream(sys.stdout)
 cerr = _CStream(sys.stderr)
-endl = '\n'
+endl = "\n"
+
 
 def auto_decorate(func):
     """
@@ -677,12 +703,14 @@ def auto_decorate(func):
         Hello Guido!
 
     """
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         if len(args) == 1 and len(kwargs) == 0 and callable(args[0]):
             return func()(args[0])
         else:
             return func(*args, **kwargs)
+
     return wrapper
 
 
@@ -732,7 +760,8 @@ def type_assert(*args, dynamic_using: bool = True, **kwargs):
         ...
         TypeError: Argument a must be of type int!
     """
-    _no_args = (not args and not kwargs)
+    _no_args = not args and not kwargs
+
     def _type_assert_decorate(func):
         nonlocal kwargs
         if _no_args:
@@ -747,6 +776,7 @@ def type_assert(*args, dynamic_using: bool = True, **kwargs):
         # Map function arguments names to supplied types
         sig = signature(func)
         bound_types = sig.bind_partial(*args, **kwargs).arguments
+
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             bound_values = sig.bind(*args, **kwargs)
@@ -756,13 +786,15 @@ def type_assert(*args, dynamic_using: bool = True, **kwargs):
                     if not isinstance(value, bound_types[name]):
                         raise TypeError(f"Argument {name} must be of type {bound_types[name].__name__}!")
             return func(*args, **kwargs)
+
         return wrapper
+
     return _type_assert_decorate
 
 
 if __name__ == "__main__":
-    if os.path.exists('pyhelper'):
-        os.chdir('pyhelper')
+    if os.path.exists("pyhelper"):
+        os.chdir("pyhelper")
     import doctest
 
     doctest.testmod(optionflags=doctest.ELLIPSIS, verbose=True)

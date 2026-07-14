@@ -26,28 +26,33 @@
 A Python function library containing various sorting algorithms
 Copyright (C)
 """
+
 from typing import Iterable, Callable, Sized, Protocol
 from abc import ABCMeta
 
 __all__ = [
-    'sorted_algorithms',
-    'sort_algorithms',
-    'select_sort',
+    "sorted_algorithms",
+    "sort_algorithms",
+    "select_sort",
 ]
+
 
 class SizedIterable(Protocol, Iterable, Sized, metaclass=ABCMeta):
     pass
 
+
 def _timsort_sort(list, *args, **kwargs):
     list.sort(*args, **kwargs)
 
-sorted_algorithms = {'TimSort': sorted}
-sort_algorithms = {'TimSort': _timsort_sort}
+
+sorted_algorithms = {"TimSort": sorted}
+sort_algorithms = {"TimSort": _timsort_sort}
 
 
 def _sort_algorithm(func):
     sort_algorithms[func.__name__] = func
     return func
+
 
 def _sorted_algorithm(func):
     sorted_algorithms[func.__name__] = func
@@ -83,6 +88,7 @@ def select_sort(seq: SizedIterable, key: Callable = None, reverse: bool = False)
                 k = j
         seq[i], seq[k] = seq[k], seq[i]
     return seq if not reverse else seq[::-1]
+
 
 def select_sorted(seq: SizedIterable, key: Callable = None, reverse: bool = False) -> SizedIterable:
     """

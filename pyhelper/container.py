@@ -28,15 +28,14 @@
 A Python module for supplementing the collections module
 Copyright (C)
 """
+
 from collections import UserList
 from collections.abc import Iterable
 import bisect
 from typing import Any
 
-__all__ = [
-    'SortedList',
-    'SortedTuple'
-]
+__all__ = ["SortedList", "SortedTuple"]
+
 
 class SortedList(UserList):
     """
@@ -89,6 +88,7 @@ class SortedList(UserList):
         >>> sorted_list
         SortedList([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 9, 9])
     """
+
     def __init__(self, data=None, *, key=lambda x: x):
         super().__init__(data)
         self.key = key
@@ -110,7 +110,7 @@ class SortedList(UserList):
         self._sort(key=self.key)
 
     def __add__(self, other: Any):
-        copy = self[:]   # Copy the original list
+        copy = self[:]  # Copy the original list
         if isinstance(other, Iterable):
             for item in other:
                 copy.add(item)
@@ -119,7 +119,7 @@ class SortedList(UserList):
         return copy
 
     def __iadd__(self, other):
-        copy = self   # Copy the original list
+        copy = self  # Copy the original list
         if isinstance(other, Iterable):
             for item in other:
                 copy.add(item)
@@ -199,7 +199,7 @@ class SortedList(UserList):
         """
         self.add(item)
 
-    def pop(self, i:None=None) -> Any:
+    def pop(self, i: None = None) -> Any:
         """
         Remove and return the element at the given index.
 
@@ -231,7 +231,7 @@ class SortedList(UserList):
         """
         self.data.clear()
 
-    def copy(self) -> 'SortedList':
+    def copy(self) -> "SortedList":
         """
         Return a shallow copy of the list.
 
@@ -244,14 +244,15 @@ class SortedList(UserList):
         raise NotImplementedError("You Can't Call SortedList.reverse()!! This Class didn't has reverse() method!")
 
     def extend(self, other) -> None:
-       """
+        """
         The secondary method is equivalent to the add() method, just to maintain consistency with the list class, please avoid using it.
         For detailed documentation, see the add() method.
 
         Args:
             other: Elements that need to be inserted
-       """
-       self.add(other)
+        """
+        self.add(other)
+
 
 class SortedTuple(tuple):
     """
@@ -270,6 +271,7 @@ class SortedTuple(tuple):
             ...
         TypeError: SortedTuple elements must be hashable
     """
+
     def __new__(cls, items):
         for item in items:
             try:
@@ -282,8 +284,8 @@ class SortedTuple(tuple):
         return f"{self.__class__.__name__}([{super().__repr__()[1:-1]}])"
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Run the test
     import doctest
+
     doctest.testmod(verbose=True)

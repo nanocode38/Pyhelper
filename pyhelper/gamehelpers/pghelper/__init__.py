@@ -27,6 +27,7 @@
 This is a collection of Pygame-based game development tool functions that rely on Python Pygame third-party libraries
 Copyright (C)
 """
+
 import sys
 from abc import ABC, abstractmethod
 from typing import *

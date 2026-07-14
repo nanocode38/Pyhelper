@@ -26,6 +26,7 @@
 A random function library for generating truly random numbers
 Copyright (C)
 """
+
 import os
 from typing import *
 
