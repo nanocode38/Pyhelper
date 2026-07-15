@@ -64,14 +64,14 @@ class SortedList(UserList):
         >>> sorted_list[3]
         Traceback (most recent call last):
         ...
-        IndexError: list index out of range
+        IndexError: sorted_list index out of range
         >>> sorted_list[::-1]
         SortedList([1, 2, 3])
         >>> sorted_list[0] = 9
         >>> sorted_list
         SortedList([2, 3, 9])
-        >>> list(sorted_list)[::-1]
-        [9, 3, 2]
+        >>> sorted_list[::-1]
+        SortedList([2, 3, 9])
         >>> sorted_list += [4, 5, 6]
         >>> sorted_list
         SortedList([2, 3, 4, 5, 6, 9])
@@ -104,6 +104,13 @@ class SortedList(UserList):
         key_value = self.key(item)
         index = bisect.bisect_left([self.key(elem) for elem in self.data], key_value)
         return index < len(self.data) and self.key(self.data[index]) == key_value
+
+    def __getitem__(self, item):
+        try:
+            ret = super().__getitem__(item)
+        except IndexError:
+            raise IndexError("sorted_list index out of range") from None
+        return ret
 
     def __setitem__(self, key, value):
         super().__setitem__(key, value)
@@ -149,7 +156,7 @@ class SortedList(UserList):
 
     def add(self, item: Any) -> None:
         """
-        Insert elements into an ordered list to keep the list organized        Args:
+        Insert elements into an ordered list to keep the sorted_list organized        Args:
 
         Args:
             item: Elements that need to be inserted

@@ -438,8 +438,8 @@ class Rect:
         >>> r.topleft
         (5, 15)
         >>> r2 = r.copy()
-        >>> r2.move(10, 10) #doctest: +ELLIPSIS
-        <Rect(10, 10, 55, 65) at ...>
+        >>> r2.move(10, 10)
+        Rect(10, 10, 30, 30)
         >>> r2.move_ip(15, 25)
         >>> r2.topleft
         (15, 25)
@@ -646,7 +646,7 @@ class Rect:
         widget.place(x=self.x, y=self.y)
 
     def __repr__(self):
-        return f"<Rect({self.x}, {self.y}, {self.w}, {self.h}) at {hex(id(self))}>"
+        return f"Rect({self.x}, {self.y}, {self.w}, {self.h})"
 
     def __eq__(self, other):
         if not isinstance(other, Rect):
