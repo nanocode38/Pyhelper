@@ -27,26 +27,19 @@ A Python function library containing various sorting algorithms
 Copyright (C)
 """
 
-from typing import Iterable, Callable, Sized, Protocol
-from abc import ABCMeta
+from typing import Callable, List, MutableSequence, Sequence
+
+from ._timsort import tim_sort, tim_sorted
 
 __all__ = [
     "sorted_algorithms",
     "sort_algorithms",
-    "select_sort",
+    "tim_sort",
+    "tim_sorted",
 ]
 
-
-class SizedIterable(Protocol, Iterable, Sized, metaclass=ABCMeta):
-    pass
-
-
-def _timsort_sort(list, *args, **kwargs):
-    list.sort(*args, **kwargs)
-
-
-sorted_algorithms = {"TimSort": sorted}
-sort_algorithms = {"TimSort": _timsort_sort}
+sorted_algorithms = {"TimSort": tim_sorted}
+sort_algorithms = {"TimSort": tim_sort}
 
 
 def _sort_algorithm(func):
@@ -59,54 +52,62 @@ def _sorted_algorithm(func):
     return func
 
 
-@_sort_algorithm
-def select_sort(seq: SizedIterable, key: Callable = None, reverse: bool = False) -> None:
-    """
-    Sort in-place with Select Sort
-
-    ===========================
-    Select Sort Algorithm
-    Time complexity: O(n ^ 2)
-    Space complexity: O(1)
-    Stable: No
-    ===========================
-
-    - Bubble sort, TimSort all options exceed this sort, so this sort will only be used in specific cases,
-        and generally do not need to be used.
-
-    Args:
-        seq: The iterable to be sorted.
-        key: The function to extract a comparison key from each element.
-        reverse: Whether to sort in descending order.
-    """
-    length: int = len(seq)
-    k: int = 0
-    for i in range(length):
-        k = i
-        for j in range(i + 1, length):
-            if key(seq[j]) < key(seq[k]):
-                k = j
-        seq[i], seq[k] = seq[k], seq[i]
-    return seq if not reverse else seq[::-1]
-
-
-def select_sorted(seq: SizedIterable, key: Callable = None, reverse: bool = False) -> SizedIterable:
-    """
-    Sort with Select Sort
-
-    ===========================
-    Select Sort Algorithm
-    Time complexity: O(n ^ 2)
-    Space complexity: O(1)
-    Stable: No
-    ===========================
-
-    - Bubble sort, TimSort all options exceed this sort, so this sort will only be used in specific cases,
-        and generally do not need to be used.
-
-    Args:
-        seq: The iterable to be sorted.
-        key: The function to extract a comparison key from each element.
-        reverse: Whether to sort in descending order.
-    """
-    return select_sort(seq[:], key=key, reverse=reverse)
+# @_sort_algorithm
+# def select_sort(seq: MutableSequence, key: Callable | None = None, reverse: bool = False) -> None:
+#     """
+#     Sort in-place with Select Sort
+#
+#     ===========================
+#     Select Sort Algorithm
+#     Time complexity: O(n ^ 2)
+#     Space complexity: O(1)
+#     Stable: No
+#     ===========================
+#
+#     - Bubble sort, TimSort all options exceed this sort, so this sort will only be used in specific cases,
+#         and generally do not need to be used.
+#
+#     Args:
+#         seq: The iterable to be sorted.
+#         key: The function to extract a comparison key from each element.
+#         reverse: Whether to sort in descending order.
+#     """
+#     if key is None:
+#         key = lambda x: x
+#     length: int = len(seq)
+#     for i in range(length):
+#         k = i
+#         for j in range(i + 1, length):
+#             if key(seq[j]) < key(seq[k]):
+#                 k = j
+#         # stable selection: shift instead of swap to preserve relative order
+#         if k != i:
+#             min_val = seq[k]
+#             for idx in range(k, i, -1):
+#                 seq[idx] = seq[idx - 1]
+#             seq[i] = min_val
+#     if reverse:
+#         seq.reverse()
+#
+# def select_sorted(seq: Sequence, key: Callable | None = None, reverse: bool = False) -> List:
+#     """
+#     Sort with Select Sort
+#
+#     ===========================
+#     Select Sort Algorithm
+#     Time complexity: O(n ^ 2)
+#     Space complexity: O(1)
+#     Stable: No
+#     ===========================
+#
+#     - Bubble sort, TimSort all options exceed this sort, so this sort will only be used in specific cases,
+#         and generally do not need to be used.
+#
+#     Args:
+#         seq: The iterable to be sorted.
+#         key: The function to extract a comparison key from each element.
+#         reverse: Whether to sort in descending order.
+#     """
+#     seq_copy = seq[:]
+#     select_sort(seq_copy, key=key, reverse=reverse)
+#     return seq_copy

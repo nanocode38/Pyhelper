@@ -32,10 +32,18 @@ urls = { repository = "https://github.com/nanocode38/pyhelper.git" }
 
 # Development dependency
 [project.optional-dependencies]
-dev = ["black", "autoflake", "isort", "setuptools", "wheel"]
+dev = ["black", "autoflake", "isort", "setuptools", "wheel", "pytest"]
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules"
+testpaths = ["tests", "pyhelper"]
+ignore = ["tests/test_all.py", "cao.*", "cao*.*", "update.*"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
 
 [tool.black]
 line-length = 120
