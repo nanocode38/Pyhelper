@@ -27,87 +27,52 @@ A Python function library containing various sorting algorithms
 Copyright (C)
 """
 
-from typing import Callable, List, MutableSequence, Sequence
+from ._sort import (
+    insertion_sort,
+    shell_sort,
+    merge_sort,
+    quick_sort,
+    heap_sort,
+    bucket_sort,
+    radix_sort,
+    tim_sort,
+)
 
-from ._timsort import tim_sort, tim_sorted
+from ._sorted import (
+    insertion_sorted,
+    shell_sorted,
+    merge_sorted,
+    quick_sorted,
+    heap_sorted,
+    bucket_sorted,
+    radix_sorted,
+    tim_sorted,
+)
+
 
 __all__ = [
-    "sorted_algorithms",
-    "sort_algorithms",
+    "insertion_sort",
+    "shell_sort",
+    "merge_sort",
+    "quick_sort",
+    "heap_sort",
+    "bucket_sort",
+    "radix_sort",
     "tim_sort",
+    "insertion_sorted",
+    "shell_sorted",
+    "merge_sorted",
+    "quick_sorted",
+    "heap_sorted",
+    "bucket_sorted",
+    "radix_sorted",
     "tim_sorted",
 ]
 
-sorted_algorithms = {"TimSort": tim_sorted}
-sort_algorithms = {"TimSort": tim_sort}
-
-
-def _sort_algorithm(func):
-    sort_algorithms[func.__name__] = func
-    return func
-
-
-def _sorted_algorithm(func):
-    sorted_algorithms[func.__name__] = func
-    return func
-
-
-# @_sort_algorithm
-# def select_sort(seq: MutableSequence, key: Callable | None = None, reverse: bool = False) -> None:
-#     """
-#     Sort in-place with Select Sort
-#
-#     ===========================
-#     Select Sort Algorithm
-#     Time complexity: O(n ^ 2)
-#     Space complexity: O(1)
-#     Stable: No
-#     ===========================
-#
-#     - Bubble sort, TimSort all options exceed this sort, so this sort will only be used in specific cases,
-#         and generally do not need to be used.
-#
-#     Args:
-#         seq: The iterable to be sorted.
-#         key: The function to extract a comparison key from each element.
-#         reverse: Whether to sort in descending order.
-#     """
-#     if key is None:
-#         key = lambda x: x
-#     length: int = len(seq)
-#     for i in range(length):
-#         k = i
-#         for j in range(i + 1, length):
-#             if key(seq[j]) < key(seq[k]):
-#                 k = j
-#         # stable selection: shift instead of swap to preserve relative order
-#         if k != i:
-#             min_val = seq[k]
-#             for idx in range(k, i, -1):
-#                 seq[idx] = seq[idx - 1]
-#             seq[i] = min_val
-#     if reverse:
-#         seq.reverse()
-#
-# def select_sorted(seq: Sequence, key: Callable | None = None, reverse: bool = False) -> List:
-#     """
-#     Sort with Select Sort
-#
-#     ===========================
-#     Select Sort Algorithm
-#     Time complexity: O(n ^ 2)
-#     Space complexity: O(1)
-#     Stable: No
-#     ===========================
-#
-#     - Bubble sort, TimSort all options exceed this sort, so this sort will only be used in specific cases,
-#         and generally do not need to be used.
-#
-#     Args:
-#         seq: The iterable to be sorted.
-#         key: The function to extract a comparison key from each element.
-#         reverse: Whether to sort in descending order.
-#     """
-#     seq_copy = seq[:]
-#     select_sort(seq_copy, key=key, reverse=reverse)
-#     return seq_copy
+# Built sort algorithms
+sort_algorithms, sorted_algorithms = {}, {}
+for func in __all__:
+    if func.endswith("_sort"):
+        sort_algorithms[" ".join(word.capitalize() for word in func.split("_"))] = globals()[func]
+    elif func.endswith("_sorted"):
+        sorted_algorithms[" ".join(word.capitalize() for word in func.split("_"))] = globals()[func]
