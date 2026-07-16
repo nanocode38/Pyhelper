@@ -38,9 +38,8 @@ dev = ["black", "autoflake", "isort", "setuptools", "wheel", "pytest"]
 where = ["."]
 
 [tool.pytest.ini_options]
-addopts = "--doctest-modules"
+addopts = "--doctest-modules --ignore=tests/test_all.py --ignore=cao.py --ignore=update.py"
 testpaths = ["tests", "pyhelper"]
-ignore = ["tests/test_all.py", "cao.*", "cao*.*", "update.*"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]

@@ -61,6 +61,17 @@ def randint(min_: int, max_: int | None = None, random: Callable = random):
 
     Raises:
         ValueError: If the min parameter is greater than the max parameter.
+
+    Examples:
+        >>> randint(1, 10, random=lambda: 0.0)
+        10
+        >>> randint(1, 10, random=lambda: 0.5)
+        6
+        >>> randint(1, 10, random=lambda: 0.99)
+        3
+        >>> randint(5, 5, random=lambda: 0.5)
+        5
+        >>> randint(3)  # doctest: +SKIP
     """
     if max_ is None:
         max_ = min_
@@ -89,6 +100,20 @@ def choice(seq: Sequence, random: Callable = random) -> Iterable:
 
     Raises:
         IndexError: When the sequence provided is empty
+
+    Examples:
+        >>> choice([10, 20, 30], random=lambda: 0.0)
+        10
+        >>> choice([10, 20, 30], random=lambda: 0.5)
+        20
+        >>> choice([10, 20, 30], random=lambda: 0.99)
+        30
+        >>> choice("abc", random=lambda: 0.5)
+        'b'
+        >>> choice([], random=lambda: 0.5)
+        Traceback (most recent call last):
+            ...
+        IndexError: Cannot choose from an empty sequence
     """
     if len(seq) <= 0:
         raise IndexError("Cannot choose from an empty sequence")
@@ -116,6 +141,22 @@ def randrange(start: int, stop: int = None, step: int = 1, random: Callable = ra
     Raises:
         ValueError: If the range is empty or step is zero
         ValueError: If the stop value is less than the start value
+
+    Examples:
+        >>> randrange(1, 10, random=lambda: 0.0)
+        1
+        >>> randrange(1, 10, random=lambda: 0.5)
+        6
+        >>> randrange(1, 10, random=lambda: 0.99)
+        10
+        >>> randrange(5, random=lambda: 0.0)
+        1
+        >>> randrange(1, 10, step=2, random=lambda: 0.5)
+        5
+        >>> randrange(10, 1)  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+            ...
+        ValueError: Stop value cannot be less than start value
     """
     if stop is None:
         stop, start, step = start, 1, 1
@@ -143,6 +184,25 @@ def shuffle(seq: Sequence, random: Callable = random):
 
     Returns:
         None: The original sequence is modified in-place.
+
+    Examples:
+        >>> lst = [1, 2, 3, 4, 5]
+        >>> _r = iter([0.0, 0.5, 0.0, 0.5])
+        >>> shuffle(lst, random=lambda: next(_r, 0.0))
+        >>> lst
+        [4, 2, 5, 3, 1]
+        >>> lst = [10, 20]
+        >>> shuffle(lst, random=lambda: 0.0)
+        >>> lst
+        [20, 10]
+        >>> lst = [10, 20]
+        >>> shuffle(lst, random=lambda: 0.5)
+        >>> lst
+        [10, 20]
+        >>> lst = []
+        >>> shuffle(lst, random=lambda: 0.5)
+        >>> lst
+        []
     """
     # Copy the original sequence to avoid modifying it directly
     for i in reversed(range(1, len(seq))):
@@ -170,6 +230,24 @@ def sample(population, k, random: Callable = random) -> list:
     Raises:
         TypeError: If population is not a Sequence
         ValueError: If k is greater than the length of the population.
+
+    Examples:
+        >>> _r = iter([0.0, 0.5, 0.0])
+        >>> sample([1, 2, 3], 2, random=lambda: next(_r, 0.0))
+        [1, 2]
+        >>> _r = iter([0.0, 0.5, 0.0])
+        >>> sample([1, 2, 3], 3, random=lambda: next(_r, 0.0))
+        [1, 2, 3]
+        >>> sample([42], 1, random=lambda: 0.0)
+        [42]
+        >>> sample([1, 2], 3, random=lambda: 0.0)
+        Traceback (most recent call last):
+            ...
+        ValueError: Sample size larger than population
+        >>> sample(42, 1)  # doctest: +IGNORE_EXCEPTION_DETAIL
+        Traceback (most recent call last):
+            ...
+        TypeError: Population must be a sequence
     """
     if not isinstance(population, Sequence):
         raise TypeError("Population must be a sequence")
