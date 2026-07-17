@@ -28,6 +28,7 @@
 A Python module that provides mathematical-related tools, belonging to Pyhelper
 Copyright (C)
 """
+
 import functools
 import math
 import os
