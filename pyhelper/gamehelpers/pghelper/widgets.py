@@ -52,6 +52,7 @@ Finally, we refresh the screen using pghelper.display.update().
 See the Pyhelper documentation for detailed usage of all components:
 Or a docstring for the corresponding component class
 """
+
 import os
 import sys
 import time

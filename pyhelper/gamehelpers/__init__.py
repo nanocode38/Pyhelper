@@ -26,6 +26,7 @@
 A library that provides game help without dependencies
 Copyright (C)
 """
+
 import time
 import tkinter as tk
 from typing import *
@@ -92,6 +93,17 @@ class Timer:
 
         Attributes:
             new_time_in_seconds: The start time of the timer, defaults to the value of time.time()
+
+        Examples:
+            >>> t = Timer(5)
+            >>> t.is_running
+            False
+            >>> t.start()
+            >>> t.is_running
+            True
+            >>> t.start(10)
+            >>> t.time_in_seconds
+            10
         """
 
         if new_time_in_seconds != -1:
@@ -100,7 +112,15 @@ class Timer:
         self.__start_time = time.time()
 
     def update(self) -> None:
-        """Update the timer's saved time."""
+        """Update the timer's saved time.
+
+        Examples:
+            >>> t = Timer(0)
+            >>> t.start(0)
+            >>> t.update()
+            >>> t.is_running
+            False
+        """
 
         if not self.__is_running:
             return
@@ -112,12 +132,29 @@ class Timer:
         self.stop()
 
     def pause(self) -> None:
-        """Pause the timer."""
+        """Pause the timer.
+
+        Examples:
+            >>> t = Timer(10)
+            >>> t.start()
+            >>> t.pause()
+            >>> t.is_running
+            False
+        """
 
         self.__is_running = False
 
     def go_on(self) -> None:
-        """Resume the timer."""
+        """Resume the timer.
+
+        Examples:
+            >>> t = Timer(10)
+            >>> t.start()
+            >>> t.pause()
+            >>> t.go_on()
+            >>> t.is_running
+            True
+        """
 
         self.__is_running = True
         self.update()
@@ -131,6 +168,18 @@ class Timer:
 
         Returns:
             Timer's saved time
+
+        Examples:
+            >>> t = Timer(-1)
+            >>> t.start()
+            >>> t.pause()
+            >>> 0 <= t.get_time() < 0.01
+            True
+            >>> t = Timer(-1)
+            >>> t.start()
+            >>> t.pause()
+            >>> t.get_time(number_of_reserved_bits=0)
+            0.0
         """
 
         if self.__is_running:
@@ -139,7 +188,18 @@ class Timer:
         return self._saved_time
 
     def stop(self) -> None:
-        """Stop the timer and execute the command if provided."""
+        """Stop the timer and execute the command if provided.
+
+        Examples:
+            >>> results = []
+            >>> t = Timer(0, command=lambda: results.append("done"))
+            >>> t.start(0)
+            >>> t.update()
+            >>> results
+            ['done']
+            >>> t.is_running
+            False
+        """
 
         self.get_time()  # Remembers final self._saved_time
         self.__is_running = False
@@ -177,7 +237,16 @@ class CountUpTimer:
         return self.__start_time
 
     def start(self) -> None:
-        """Start the timer."""
+        """Start the timer.
+
+        Examples:
+            >>> timer = CountUpTimer()
+            >>> timer.start()
+            >>> timer.is_running
+            True
+            >>> timer.is_pause
+            True
+        """
         if self.is_pause:
             self.__start_time = time.time()
             # get the cutter Seconds and save the value
@@ -204,6 +273,13 @@ class CountUpTimer:
         Returns:
             If the mode is 'HHMMSS': str: The current time of the timer in the specified format.
             Else: The current time of the timer in Seconds.
+
+        Examples:
+            >>> timer = CountUpTimer()
+            >>> timer.get_time()
+            0.0
+            >>> timer.get_time(mode="HHMMSS")
+            '00:00:00.0'
         """
         if mode != "HHMMSS":
             return self._get_time()
@@ -223,7 +299,15 @@ class CountUpTimer:
         return f"{str_hours}:{str_min}:{str_second}"
 
     def stop(self) -> None:
-        """Stop the timer."""
+        """Stop the timer.
+
+        Examples:
+            >>> timer = CountUpTimer()
+            >>> timer.start()
+            >>> timer.stop()
+            >>> timer.is_running
+            False
+        """
         self.get_time()  # remembers final self._saved_time
         self.__is_running = False
 
@@ -235,6 +319,14 @@ class CountDownTimer:
 
     Args:
         str_start_time: String in format HHMMSS, countdown time
+
+    Examples:
+        >>> timer = CountDownTimer("00:01:00.0")
+        >>> timer.seconds
+        60.0
+        >>> timer = CountDownTimer("01:30:20.5")
+        >>> timer.seconds
+        5420.5
     """
 
     def __init__(self, str_start_time: str, command: Callable = None):
@@ -249,7 +341,14 @@ class CountDownTimer:
             self.timer = Timer(self.seconds)
 
     def start(self) -> None:
-        """Start the timer."""
+        """Start the timer.
+
+        Examples:
+            >>> timer = CountDownTimer("00:00:10.0")
+            >>> timer.start()
+            >>> timer.timer.is_running
+            True
+        """
         self.timer.start()
 
     def update(self) -> None:
@@ -276,6 +375,16 @@ class CountDownTimer:
         Returns:
             If the mode is 'HHMMSS': str: The current time of the timer in the specified format.
             Else: The current time of the timer in Seconds.
+
+        Examples:
+            >>> timer = CountDownTimer("00:00:10.0")
+            >>> timer.get_time()
+            10.0
+            >>> timer.get_time(mode="HHMMSS")
+            '00:00:10.0'
+            >>> timer = CountDownTimer("01:30:20.5")
+            >>> timer.get_time()
+            5420.5
         """
         saved_time = self.seconds - self.timer._saved_time
         if mode != "HHMMSS":
@@ -295,5 +404,13 @@ class CountDownTimer:
         return f"{strhours}:{strmin}:{strsec}"
 
     def stop(self) -> None:
-        """Stop the Timer"""
+        """Stop the Timer
+
+        Examples:
+            >>> timer = CountDownTimer("00:00:10.0")
+            >>> timer.start()
+            >>> timer.stop()
+            >>> timer.timer.is_running
+            False
+        """
         self.timer.stop()

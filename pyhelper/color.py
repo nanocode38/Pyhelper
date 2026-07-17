@@ -45,6 +45,7 @@ You can use this module as follows:
 >>> HSLColor.to_hex(HSLColor.RED)
 '#FF0000'
 """
+
 import doctest
 import json
 import os.path

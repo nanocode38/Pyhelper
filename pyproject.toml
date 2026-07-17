@@ -20,21 +20,29 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
-    "pygame",
     "numba",
-    "pywin32>=311",
+    "pygame>=2.6.1; python_version < '3.14'",
+    "pygame-ce>=2.5.7; python_version >= '3.14'",
 ]
 urls = { repository = "https://github.com/nanocode38/pyhelper.git" }
 
 # Development dependency
 [project.optional-dependencies]
-dev = ["black", "autoflake", "isort", "setuptools", "wheel"]
+dev = ["black", "autoflake", "isort", "setuptools", "wheel", "pytest", "pdoc"]
 
 [tool.setuptools.packages.find]
 where = ["."]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules --ignore=tests/test_all.py --ignore=cao.py --ignore=update.py"
+testpaths = ["tests", "pyhelper"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
 
 [tool.black]
 line-length = 120

@@ -44,8 +44,8 @@ Copyright (C)
 By nanocode38 nanocode38@88.com
 2025.03.02
 """
+
 import functools
-import multiprocessing
 import os
 import platform
 import subprocess
@@ -54,36 +54,49 @@ from abc import ABC
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Callable, Generator
+from types import FrameType
 
 __author__ = "nanocode38"
-__version__ = "2.7.0"
+__version__ = "3.0.0"
 __all__ = [
     "get_version",
     "file_reopen",
     "chdir",
-    "create_shortcut",
     "join_startup",
-    "get_startup_dir",
     "system",
     "Singleton",
     "timer",
+    "tail_recursive_optimization",
     "gamehelpers",
     "color",
     "mathhelper",
     "tkhelper",
-    "random",
+    "sort",
+    "container",
+    "custom_random",
     "namespace",
+    "readonly_attr",
+    "Assert",
+    "endl",
+    "cout",
+    "cerr",
+    "get_annotation",
+    "auto_decorate",
+    "AutoInitAttrMixin",
+    "init_cls_attr_from_locals",
+    "Typed",
+    "Descriptor"
 ]
 
 
 if __name__ != "__main__":
     print(f"PyHelper {__version__}", end=" ")
-    os_type = platform.system()
-    if os_type == "Windows":
+    os_name = platform.system()
+    if os_name == "Windows":
         print("(Microsoft Windows,", end=" ")
-    elif os_type == "Darwin":  # macOS
+    elif os_name == "Darwin":  # macOS
         print("(MacOS,", end=" ")
-    elif os_type == "Linux":
+    elif os_name == "Linux":
         print("(Linux,", end=" ")
     else:
         print("(Unknown OS,", end=" ", file=sys.stderr)
@@ -91,7 +104,7 @@ if __name__ != "__main__":
     print(f"{sys.version_info[2]})")
     print("Hello from the PyHelper community!", end=" ")
     print("https://githun.com/nanocode38/pyhelper.git")
-    if os_type not in ("Windows", "Darwin", "Linux"):
+    if os_name not in ("Windows", "Darwin", "Linux"):
         print("Warning: Unknown OS, some functions may not work properly.", file=sys.stderr)
 
 
@@ -190,51 +203,7 @@ def file_reopen(file_obj, stream=sys.stdout) -> Generator[None, Any, None]:
         raise ValueError("Invalid stream specified")
 
 
-# This function is outdated, please do not use new projects
-def create_shortcut(target: Path | str, shortcut_name: str, shortcut_location: Path | str) -> None:
-    """
-    This function is outdated, please do not use new projects
-    Creates a shortcut to the specified target file.
-
-    Args:
-        target: Full path to the target file.
-        shortcut_name: Name for the shortcut.
-        shortcut_location: Location for the shortcut.
-    """
-    import win32com.client
-
-    target = os.path.abspath(target)
-    shell = win32com.client.Dispatch("WScript.Shell")  # Create WScript.Shell object
-    shortcut = shell.CreateShortCut(os.path.join(shortcut_location, shortcut_name + ".lnk"))  # Create shortcut object
-    shortcut.TargetPath = target  # Specify target path
-    shortcut.WorkingDirectory = os.path.dirname(target)  # Set working directory
-    shortcut.save()  # Save shortcut
-
-
-def get_startup_dir() -> Path:
-    """
-    A function for obtaining the start-up directory
-
-    Returns:
-        A string for the start-up directory
-    """
-    if platform.system() == "Windows":
-        from win32com.shell import shell, shellcon
-
-        dir_path = Path(shell.SHGetFolderPath(0, shellcon.CSIDL_STARTUP, 0, 0))
-        return dir_path
-    elif platform.system() == "Darwin":
-        home_dir = Path(os.path.expanduser("~"))
-        return home_dir / "Library" / "StartupItems"
-    elif platform.system() == "Linux":
-        # Linux 通常使用 .config/autostart 目录
-        home_dir = Path(os.path.expanduser("~"))
-        return home_dir / ".config" / "autostart"
-    else:
-        raise OSError("Unsupported platform")
-
-
-def join_startup(target: Path | str, *args, **kwargs) -> bool:
+def join_startup(target: Path, *args, **kwargs) -> bool:
     """
     Add a file to startup on Windows, macOS, or Linux.
 
@@ -253,13 +222,24 @@ def join_startup(target: Path | str, *args, **kwargs) -> bool:
         - macOS: Creates Launch Agent plist in ~/Library/LaunchAgents
         - Linux: Creates systemd user service or .desktop file
     """
+    # Prompts the user that the args and kwargs parameters have been abandoned.
+    # It is recommended to use the target parameter directly.
+    if args or kwargs:
+        import warnings
+
+        warnings.warn(
+            "args and kwargs parameters are deprecated and will be removed in a future version.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
     # Convert to absolute path and verify existence
     target = os.path.abspath(target)
     if not os.path.exists(target):
         print(f"Error: File not found at {target}", file=sys.stderr)
         return False
 
-    os_type = platform.system()
+    os_type: str = platform.system()
     try:
         if os_type == "Windows":
             return _windows_startup(target)
@@ -301,7 +281,7 @@ def _windows_startup(file_path: str) -> bool:
 def _macos_startup(file_path: str) -> bool:
     """macOS implementation using LaunchAgent"""
     plist_content = f"""<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>Label</key>
@@ -384,9 +364,9 @@ def system(command: str, nonblocking: bool = False) -> int:
         exit code
     """
     if not nonblocking:
-        return os.system(command)
+        return subprocess.run(command, shell=True).returncode
     else:
-        multiprocessing.Process(target=os.system, args=(command,)).start()
+        subprocess.Popen(command, shell=True)
         return 0
 
 
@@ -396,7 +376,7 @@ def get_annotation():
         A decorator to simulate annotations in Java. This decorator is temporal
     """
 
-    def annotation(func, *args, **kwargs):
+    def annotation(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
@@ -479,7 +459,498 @@ def timer(callback: Callable[[float, ...], Any] | None = None, *args, **kwargs) 
         callback(time.time() - t, *args, **kwargs)
 
 
+class TailRecurseException(Exception):
+    def __init__(self, args, kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+
+def tail_recursive_optimization(func):
+    """
+    A decorator to optimize tail recursion
+
+    Warning: Do not use this decorator on functions called without tailless recursively, otherwise there will be
+    unpredictable consequences
+
+
+    Examples:
+        >>> def factorial(n, acc=1):
+        ...     if n == 0:
+        ...         return acc
+        ...     return factorial(n - 1, n * acc)
+        ...
+        >>> factorial(1000)
+        Traceback (most recent call last):
+        ...
+        RecursionError: maximum recursion depth exceeded
+        >>> @tail_recursive_optimization
+        ... def factorial(n, acc=1):
+        ...    if n == 0:
+        ...       return acc
+        ...    return factorial(n - 1, n * acc)
+        ...
+        >>> factorial(1000)
+        402387260077093773543702433923003985719374864210714632543799910429938512398629020592044208486969404800479988610197196058631666872994808558901323829669944590997424504087073759918823627727188732519779505950995276120874975462497043601418278094646496291056393887437886487337119181045825783647849977012476632889835955735432513185323958463075557409114262417474349347553428646576611667797396668820291207379143853719588249808126867838374559731746136085379534524221586593201928090878297308431392844403281231558611036976801357304216168747609675871348312025478589320767169132448426236131412508780208000261683151027341827977704784635868170164365024153691398281264810213092761244896359928705114964975419909342221566832572080821333186116811553615836546984046708975602900950537616475847728421889679646244945160765353408198901385442487984959953319101723355556602139450399736280750137837615307127761926849034352625200015888535147331611702103968175921510907788019393178114194545257223865541461062892187960223838971476088506276862967146674697562911234082439208160153780889893964518263243671616762179168909779911903754031274622289988005195444414282012187361745992642956581746628302955570299024324153181617210465832036786906117260158783520751516284225540265170483304226143974286933061690897968482590125458327168226458066526769958652682272807075781391858178889652208164348344825993266043367660176999612831860788386150279465955131156552036093988180612138558600301435694527224206344631797460594682573103790084024432438465657245014402821885252470935190620929023136493273497565513958720559654228749774011413346962715422845862377387538230483865688976461927383814900140767310446640259899490222221765904339901886018566526485061799702356193897017860040811889729918311021171229845901641921068884387121855646124960798722908519296819372388642614839657382291123125024186649353143970137428531926649875337218940694281434118520158014123344828015051399694290153483077644569099073152433278288269864602789864321139083506217095002597389863554277196742822248757586765752344220207573630569498825087968928162753848863396909959826280956121450994871701244516461260379029309120889086942028510640182154399457156805941872748998094254742173582401063677404595741785160829230135358081840096996372524230560855903700624271243416909004153690105933983835777939410970027753472000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+    """
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        frame: FrameType = sys._getframe()
+        # Check whether the grandfather stack frame (f_back.f_back) of the current stack frame is the same as the current function
+        if frame.f_back and frame.f_back.f_back and frame.f_back.f_back.f_code == frame.f_code:
+            raise TailRecurseException(args, kwargs)
+        else:
+            while True:
+                try:
+                    return func(*args, **kwargs)
+                except TailRecurseException as e:
+                    args = e.args
+                    kwargs = e.kwargs
+
+    return wrapper
+
+
+def _getattr(origin, **kwargs):
+    @functools.wraps(origin)
+    def __getattr__(self, name):
+        if name in kwargs.keys():
+            return kwargs[name]
+        return origin(self, name)
+
+    return __getattr__
+
+
+def _setattr(origin, **kwargs):
+    @functools.wraps(origin)
+    def __setattr__(self, name, value):
+        if name in kwargs.keys():
+            raise AttributeError(f"Readonly attribute {name}")
+        origin(self, name, value)
+
+    return __setattr__
+
+
+def _dir(origin, **kwargs):
+    @functools.wraps(origin)
+    def __dir__(self):
+        return origin(self) + list(kwargs.keys())
+
+    return __dir__
+
+
+def readonly_attr(**kwargs):
+    """
+    Class decorator, used to set read-only attributes. Pass the attribute name and value through keyword parameters
+
+    Args:
+        **kwargs: Set of parameters used to set read-only attributes
+
+    Examples:
+        >>> @readonly_attr(a='a', b=[1, 2])
+        ... class Span:
+        ...     def __init__(self):
+        ...         self.c = 1
+        ...         self.d = 2
+        ...     def __getattr__(self, item):
+        ...         if item == 'w':
+        ...             return self.c
+        ...         return self.__dict__[item]
+        ...
+        >>> span = Span()
+        >>> span.w
+        1
+        >>> span.c, span.d
+        (1, 2)
+        >>> span.a, span.b
+        ('a', [1, 2])
+        >>> span.a = 'b'
+        Traceback (most recent call last):
+        ...
+        AttributeError: Readonly attribute a
+        >>> span.a
+        'a'
+        >>> span.b = 'b'
+        Traceback (most recent call last):
+        ...
+        AttributeError: Readonly attribute b
+        >>> span.b
+        [1, 2]
+    """
+
+    def wrapper(cls):
+        cls.__setattr__ = _setattr(cls.__setattr__, **kwargs)
+        cls.__getattribute__ = _getattr(cls.__getattribute__, **kwargs)
+        cls.__dir__ = _dir(cls.__dir__, **kwargs)
+        return cls
+
+    return wrapper
+
+
+class Assert:
+    """
+    Assertion class, used to assert expressions. If the expression is False, raise the specified exception.
+
+    Args:
+        exception (Exception, optional): Exception class to be raised. Defaults to AssertionError.
+
+    Examples:
+        >>> assert_ = Assert()
+        >>> assert_(True)
+        >>> assert_(False)
+        Traceback (most recent call last):
+        ...
+        AssertionError
+        >>> assert_(1 == 2, exception=Exception)
+        Traceback (most recent call last):
+        ...
+        Exception
+        >>> assert_(1 == 2, exception=AssertionError("1 is not equal to 2"))
+        Traceback (most recent call last):
+        ...
+        AssertionError: 1 is not equal to 2
+        >>> assert_(1 == 2, exception=Exception("1 is not equal to 2"))
+        Traceback (most recent call last):
+        ...
+        Exception: 1 is not equal to 2
+        >>> assert_ = Assert(RuntimeError)
+        >>> assert_(1 == 2)
+        Traceback (most recent call last):
+        ...
+        RuntimeError
+        >>> assert_(1 == 2, exception=RuntimeError('1 is not equal to 2'))
+        Traceback (most recent call last):
+        ...
+        RuntimeError: 1 is not equal to 2
+        >>> assert_(1 == 2, exception=Exception("1 is not equal to 2"))
+        Traceback (most recent call last):
+        ...
+        Exception: 1 is not equal to 2
+        >>> assert_ = Assert(RuntimeError('2 is not equal to 3'))
+        >>> assert_(2 == 3)
+        Traceback (most recent call last):
+        ...
+        RuntimeError: 2 is not equal to 3
+        >>> assert(5 == 5.0)
+    """
+
+    def __init__(self, exception=AssertionError):
+        self.exception = exception
+
+    def __call__(self, expression, exception=None):
+        if exception is None:
+            exception = self.exception
+        if not expression:
+            raise exception
+
+
+class _CStream:
+    _cnt = 0
+
+    def __init__(self, file):
+        if self._cnt >= 2:
+            raise RuntimeError("Only two instance of _CStream can be created")
+        self._cnt += 1
+        self.file = file
+
+    def __lshift__(self, other):
+        print(str(other), end="", file=self.file)
+        return self
+
+    def __repr__(self):
+        return f"{self.__name__}({self.file})"
+
+
+cout = _CStream(sys.stdout)
+cerr = _CStream(sys.stderr)
+endl = "\n"
+
+
+def auto_decorate(func):
+    """
+    Decorator that allows a decorator factory to be used as a simple decorator without explicit calling.
+
+    When a decorator factory (a function that returns a decorator) is decorated with `@auto_decorate`,
+    it can be applied to functions without explicit parentheses. For example, `@spam` is equivalent
+    to `@spam()` when using `@auto_decorate`.
+
+    This is particularly useful when the decorator factory has optional parameters with default values,
+    allowing for cleaner and more readable decorator syntax.
+
+    Examples:
+        >>> @auto_decorate
+        ... def spam(abc=True):
+        ...     def egg(func):
+        ...         def wrapper(*args, **kwargs):
+        ...             print("ABC is", str(abc))
+        ...             return func(*args, **kwargs)
+        ...         return wrapper
+        ...     return egg
+        ...
+        >>> @spam
+        ... def hello(name="World"):
+        ...     print(f"Hello {name}!")
+        ...
+        >>> hello()
+        ABC is True
+        Hello World!
+        >>> hello("Bob")
+        ABC is True
+        Hello Bob!
+        >>> @spam(False)
+        ... def hello(name="World"):
+        ...     print(f"Hello {name}!")
+        ...
+        >>> hello()
+        ABC is False
+        Hello World!
+        >>> hello("Guido")
+        ABC is False
+        Hello Guido!
+
+    """
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if len(args) == 1 and len(kwargs) == 0 and callable(args[0]):
+            return func()(args[0])
+        else:
+            return func(*args, **kwargs)
+
+    return wrapper
+
+
+@auto_decorate
+def type_assert(*args, dynamic_using: bool = True, **kwargs):
+    """
+    The decorator enforces type checking on the parameters passed to the function. See the parameters below.
+    When no parameters about type checking are passed in,
+    the function type annotation will be automatically read for checking.
+
+    Args:
+        *args: Positionally determine the type of a parameter for inspection
+        dynamic_using: Keyword parameter, indicating whether to automatically turn off type checking when in
+        optimization mode (adding -O or -OO parameters). The default value is True.
+        **kwargs: Provide parameter names and types for inspection
+
+    Raises:
+        TypeError: If any of the arguments do not match the expected types.
+
+    Examples:
+        >>> @type_assert(int, b=str)
+        ... def add(a, b):
+        ...     return a + int(b)
+        ...
+        >>> add(1, 2)
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument b must be of type str!
+        >>> add("1", "2")
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument a must be of type int!
+        >>> add(1, "2")
+        3
+        >>> add("1", 2)
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument a must be of type int!
+        >>> @type_assert
+        ... def sub(a: int, b: str):
+        ...     return a - int(b)
+        ...
+        >>> sub(1, "2")
+        -1
+        >>> sub("1", 2)
+        Traceback (most recent call last):
+        ...
+        TypeError: Argument a must be of type int!
+    """
+    _no_args = not args and not kwargs
+
+    def _type_assert_decorate(func):
+        nonlocal kwargs
+        if _no_args:
+            kwargs = func.__annotations__
+
+        # If in dynamic mode and in optimized mode, disable type checking
+        if dynamic_using and not __debug__:
+            return func
+
+        from inspect import signature
+
+        # Map function arguments names to supplied types
+        sig = signature(func)
+        bound_types = sig.bind_partial(*args, **kwargs).arguments
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            bound_values = sig.bind(*args, **kwargs)
+            # Enforce type assertions across supplied args
+            for name, value in bound_values.arguments.items():
+                if name in bound_types:
+                    if not isinstance(value, bound_types[name]):
+                        raise TypeError(f"Argument {name} must be of type {bound_types[name].__name__}!")
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return _type_assert_decorate
+
+class AutoInitAttrMixin:
+    """
+    一个自动将__init__()中参数自动赋值给属性的Mixin类
+    通过定义_fields类属性, 指定__init__()方法的参数。
+    __init__()方法支持位置参数和关键字参数, 其中位置参数必须与_fields中的参数顺序一致, 而关键字参数名称必须与_fields中的参数名称一致。
+    位置参数将首先占据_fields中的参数, 如果位置参数不足, 则关键字参数将被用于填充_fields中的参数。,其他关键字参数将被忽略。
+    副作用: 使用这个Mixin类会导致类的元数据与理想的不一致, 致使获取函数签名或使用IDE的自动补全功能时, 会显示错误的参数信息。
+    要解决此问题, 可以使用pyhelper.init_cls_attr_from_locals()函数来初始化类的属性, 但这个函数使用了frame back机制, 效率有所降低
+
+    A Mixin class that automatically assigns parameters in __init__() to attributes
+    By defining the _fields class attribute, specify the parameters of the __init__() method.
+    The __init__() method supports positional parameters and keyword parameters.
+    The positional parameters must be in the same order as the parameters in _fields,
+    and the keyword parameter names must be consistent with the parameter names in _fields.
+    Positional parameters will first occupy the parameters in _fields. If there are insufficient positional parameters,
+    keyword parameters will be used to fill the parameters in _fields. ,other keyword arguments will be ignored.
+
+    *Side effects*
+    Using this Mixin class will cause the metadata of the class to be inconsistent with the ideal,
+    causing incorrect parameter information to be displayed when obtaining function signatures or using the IDE's auto-completion function.
+    To solve this problem, you can use the pyhelper.init_cls_attr_from_locals() function to initialize the attributes of the class,
+    but this function uses the frame back mechanism, which reduces the efficiency.
+
+    Examples:
+        >>> class Example(AutoInitAttrMixin):
+        ...     _fields = ["a", "b", "c"]
+        ...     def __init__(self, a, b, c):
+        ...         super().__init__(a, b, c)
+        ...
+        >>> example = Example(1, 2, c=3)
+        >>> example.a
+        1
+        >>> example.b
+        2
+        >>> example.c
+        3
+        >>> class Example2(AutoInitAttrMixin):
+        ...     _fields = ["a", "b", "c"]
+        ...
+        >>> example2 = Example2(1, 2, b=3)
+        Traceback (most recent call last):
+        ...
+        TypeError: Expected 3 arguments!
+        """
+    # Class variable that specifies expected fields
+    _fields = []
+    def __init__(self, *args, **kwargs):
+        args = list(args)
+        for name in self._fields[len(args):]:
+            if name in kwargs:
+                args.append(kwargs[name])
+        if len(args) != len(self._fields):
+            raise TypeError("Expected %d arguments!" % len(self._fields))
+
+        # Set the arguments
+        for name, value in zip(self._fields, args):
+            setattr(self, name, value)
+
+def init_cls_attr_from_locals(self):
+    """
+    A function that automatically assigns values to attributes based on the parameters of the __init__() method
+    This function uses the frame back mechanism, and the efficiency is reduced. If you are pursuing efficiency,
+    you can use the pyhelper.AutoInitAttrMixin class to automatically assign parameters.
+    You need to call the function() method in the __init__() method and pass in the self parameter
+    Args:
+        self: The current instance object, used to set properties
+
+    Examples:
+        >>> class Example:
+        ...     def __init__(self, a, b, c):
+        ...         init_cls_attr_from_locals(self)
+        ...
+        >>> example = Example(1, 2, c=3)
+        >>> example.a
+        1
+        >>> example.b
+        2
+        >>> example.c
+        3
+        >>> example2 = Example(a=1, b=2, c=3)
+        >>> example2.a
+        1
+        >>> example2.b
+        2
+        >>> example2.c
+        3
+    """
+    locs = sys._getframe(1).f_locals
+    for key, value in locs.items():
+        if key != 'self':
+            setattr(self, key, value)
+
+
+class Descriptor:
+    """
+    A simple descriptor class that stores attributes dynamically.
+
+    This base descriptor stores the attribute name and accepts additional
+    options as keyword arguments. When a value is set on an instance,
+    it stores the value in the instance's __dict__ using the descriptor's name.
+
+    Args:
+        name: The attribute name to use for storage in instance __dict__.
+        **opts: Additional options to set as attributes on the descriptor.
+
+    Example:
+        >>> class MyClass:
+        ...     value = Descriptor('value')
+        >>> obj = MyClass()
+        >>> obj.value = 42
+        >>> obj.value
+        42
+    """
+    def __init__(self, name=None, **opts):
+        self.name = name
+        for key, value in opts.items():
+            setattr(self, key, value)
+
+    def __set__(self, instance, value):
+        instance.__dict__[self.name] = value
+
+class Typed(Descriptor):
+    """
+    A descriptor that enforces type checking on assigned values.
+
+    Inherits from Descriptor and adds type validation. When a value is assigned,
+    it checks if the value is an instance of expected_type before storing it.
+
+    Raises:
+        TypeError: If the assigned value is not an instance of expected_type.
+
+    Example:
+        >>> class IntField(Typed):
+        ...     expected_type = int
+        >>> class MyClass:
+        ...     count = IntField('count')
+        >>> obj = MyClass()
+        >>> obj.count = 10
+        >>> obj.count
+        10
+        >>> obj.count = 'hello'
+        Traceback (most recent call last):
+            ...
+        TypeError: Expected int!
+    """
+    expected_type = type(None)
+    def __set__(self, instance, value):
+        if not isinstance(value, self.expected_type):
+            raise TypeError("Expected %s!" % self.expected_type.__name__)
+        super().__set__(instance, value)
+
 if __name__ == "__main__":
+    if os.path.exists("pyhelper"):
+        os.chdir("pyhelper")
     import doctest
 
-    doctest.testmod()
+    doctest.testmod(optionflags=doctest.ELLIPSIS, verbose=True)

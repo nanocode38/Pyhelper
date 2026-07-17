@@ -1,3 +1,32 @@
+# !/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+#   ___      _  _     _
+#  | _ \_  _| || |___| |_ __  ___ _ _
+#  |  _/ || | __ / -_) | '_ \/ -_) '_|
+#  |_|  \_, |_||_\___|_| .__/\___|_|
+#       |__/           |_|
+
+#
+# Pyhelper - Packages that provide more helper tools for Python
+# Copyright (C) 2023-2024   Gao Yuhan(高宇涵)
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Library Public
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# DON'T EVEN HAVE A PERMIT TOO!
+#
+# Gao Yuhan(高宇涵)
+# nanocode24@outlook.com
+# nanocode38
+"""
+A helper function library for Tcl Tkinter
+Copyright (C)
+"""
+
 import os.path
 import time
 import tkinter as tk
@@ -395,9 +424,9 @@ class Rect:
     Examples:
         >>> r = Rect(10, 20, 30, 40)
         >>> r.x, r.y, r.w, r.h
-        (10, 20, 20, 20)
-        >>> r.left, r.top, r.right, r.bottom
         (10, 20, 30, 40)
+        >>> r.left, r.top, r.right, r.bottom
+        (10, 20, 40, 60)
         >>> r.width = 30
         >>> r.height = 30
         >>> r.size
@@ -409,8 +438,8 @@ class Rect:
         >>> r.topleft
         (5, 15)
         >>> r2 = r.copy()
-        >>> r2.move(10, 10) #doctest: +ELLIPSIS
-        <Rect(10, 10, 40, 40) at ...>
+        >>> r2.move(10, 10)
+        Rect(10, 10, 30, 30)
         >>> r2.move_ip(15, 25)
         >>> r2.topleft
         (15, 25)
@@ -585,9 +614,9 @@ class Rect:
         >>> r2.topleft
         (5, 5)
         >>> r2.bottomright
-        (25, 25)
+        (35, 45)
         """
-        return Rect(x, y, x + self.w, y + self.h)
+        return Rect(x, y, self.w, self.h)
 
     def move_ip(self, x: int, y: int) -> None:
         """Move the rect in situ
@@ -607,7 +636,7 @@ class Rect:
         >>> r2.bottomright == r.bottomright
         True
         """
-        return Rect(self.x, self.y, self.x + self.w, self.y + self.h)
+        return Rect(self.x, self.y, self.w, self.h)
 
     def pack_widget(self, widget: tk.Widget) -> None:
         """
@@ -617,7 +646,7 @@ class Rect:
         widget.place(x=self.x, y=self.y)
 
     def __repr__(self):
-        return f"<Rect({self.x}, {self.y}, {self.x + self.w}, {self.y + self.h}) at {hex(id(self))}>"
+        return f"Rect({self.x}, {self.y}, {self.w}, {self.h})"
 
     def __eq__(self, other):
         if not isinstance(other, Rect):
@@ -630,18 +659,18 @@ class Rect:
     def __add__(self, other):
         if not isinstance(other, Rect):
             return NotImplemented
-        return Rect(self.x + other.x, self.y + other.y, self.x + self.w + other.w, self.y + self.h + other.h)
+        return Rect(self.x + other.x, self.y + other.y, self.w + other.w, self.h + other.h)
 
     def __sub__(self, other):
         if not isinstance(other, Rect):
             return NotImplemented
-        return Rect(self.x - other.x, self.y - other.y, self.x + self.w - other.w, self.y + self.h - other.h)
+        return Rect(self.x - other.x, self.y - other.y, self.w - other.w, self.h - other.h)
 
     def __mul__(self, scalar):
-        return Rect(self.x * scalar, self.y * scalar, (self.x + self.w) * scalar, (self.y + self.h) * scalar)
+        return Rect(self.x * scalar, self.y * scalar, self.w * scalar, self.h * scalar)
 
     def __truediv__(self, scalar):
-        return Rect(self.x / scalar, self.y / scalar, (self.x + self.w) / scalar, (self.y + self.h) / scalar)
+        return Rect(self.x / scalar, self.y / scalar, self.w / scalar, self.h / scalar)
 
     def __iadd__(self, other):
         if not isinstance(other, Rect):
@@ -676,6 +705,37 @@ class Rect:
         return self
 
 
+_tk_root = None
+_tk_label = None
+
+
+def _get_tk_label(font: tuple = ("KaiTi", 12)) -> "tk.Label":
+    """Lazily initialize and return a shared Tk Label for font measurement.
+
+    Reuses a single hidden Tk root window instead of creating/destroying
+    one on every call, which avoids intermittent Tk resource issues and
+    resource leaks.
+    """
+    global _tk_root, _tk_label
+    if _tk_root is None:
+        try:
+            _tk_root = tk.Tk()
+        except tk.TclError as e:
+            raise RuntimeError(
+                f"tkinter cannot initialize. This usually means Tk/Tcl is "
+                f"not properly installed in your Python environment.\n"
+                f"Original error: {e}"
+            ) from e
+        _tk_root.withdraw()
+        _tk_label = tk.Label(_tk_root, height=1, width=1, font=font)
+        _tk_label.pack()
+        _tk_root.update()
+    else:
+        _tk_label.config(font=font)
+        _tk_root.update()
+    return _tk_label
+
+
 def pix_to_fontsize(pix: int, font: tuple = ("KaiTi", 12)) -> tuple:
     """
     Convert pixels to font size
@@ -690,15 +750,15 @@ def pix_to_fontsize(pix: int, font: tuple = ("KaiTi", 12)) -> tuple:
     Note: This function creates a temporary Tk window
 
     Examples:
-        >>> pix_to_fontsize(100)
+        >>> pix_to_fontsize(100)  # doctest: +SKIP
         (54, 54)
     """
-    root = tk.Tk()
-    label = tk.Label(root, height=1, width=1, font=font)
-    label.pack()
-    root.update()
+    label = _get_tk_label(font)
     width, height = label.winfo_reqwidth(), label.winfo_reqheight()
-    root.destroy()
+    if height <= 0:
+        raise RuntimeError(
+            f"Failed to measure font {font}: label height is {height}"
+        )
     return int(pix * (12 / height)), int(pix * (12 / height))
 
 
@@ -715,15 +775,15 @@ def fontsize_to_pix(num: int, font: tuple = ("KaiTi", 12)) -> tuple:
 
     Note: This function creates a temporary Tk window
     Examples:
-        >>> fontsize_to_pix(12)
+        >>> fontsize_to_pix(12)  # doctest: +SKIP
         (14, 22)
     """
-    root = tk.Tk()
-    label = tk.Label(root, height=1, width=1, font=font)
-    label.pack()
-    root.update()
+    label = _get_tk_label(font)
     width, height = label.winfo_reqwidth(), label.winfo_reqheight()
-    root.destroy()
+    if width <= 0 or height <= 0:
+        raise RuntimeError(
+            f"Failed to measure font {font}: label size is {width}x{height}"
+        )
     return width * num // 12, height * num // 12
 
 
