@@ -71,6 +71,8 @@ __all__ = [
     "color",
     "mathhelper",
     "tkhelper",
+    "sort",
+    "container",
     "custom_random",
     "namespace",
     "readonly_attr",

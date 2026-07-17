@@ -32,7 +32,7 @@ urls = { repository = "https://github.com/nanocode38/pyhelper.git" }
 
 # Development dependency
 [project.optional-dependencies]
-dev = ["black", "autoflake", "isort", "setuptools", "wheel", "pytest"]
+dev = ["black", "autoflake", "isort", "setuptools", "wheel", "pytest", "pdoc"]
 
 [tool.setuptools.packages.find]
 where = ["."]
