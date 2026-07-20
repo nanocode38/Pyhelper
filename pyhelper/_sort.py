@@ -1,27 +1,5 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-#   ___      _  _     _
-#  | _ \_  _| || |___| |_ __  ___ _ _
-#  |  _/ || | __ / -_) | '_ \/ -_) '_|
-#  |_|  \_, |_||_\___|_| .__/\___|_|
-#       |__/           |_|
-
-#
-# Pyhelper - Packages that provide more helper tools for Python
-# Copyright (C) 2023-2024   Gao Yuhan(高宇涵)
-#
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Library Public
-#
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# DON'T EVEN HAVE A PERMIT TOO!
-#
-# Gao Yuhan(高宇涵)
-# nanocode24@outlook.com
-# nanocode38
 from typing import Callable, List, MutableSequence, Optional, Sequence, Any, Iterable
 import math
 

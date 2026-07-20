@@ -79,8 +79,8 @@ Copyright (C)</p>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="c1">#       |__/           |_|</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1">#</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># Pyhelper - Packages that provide more helper tools for Python</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2023-2024   Gao Yuhan(高宇涵)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># PyHelper - Packages that provide more helper tools for Python</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2026-2030  Weixu Zheng(郑维序)</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="c1">#</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="c1"># This library is free software; you can redistribute it and/or</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="c1"># modify it under the terms of the GNU Library Public</span>
@@ -90,8 +90,8 @@ Copyright (C)</p>
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="c1"># DON&#39;T EVEN HAVE A PERMIT TOO!</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="c1">#</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1"># Gao Yuhan(高宇涵)</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># nanocode24@outlook.com</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1"># Weixu Zheng(郑维序)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># nanocode38@88.com</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="c1"># nanocode38</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">A random function library for generating truly random numbers</span>
@@ -398,33 +398,41 @@ more secure randomization method based on os.urandom for generating the
 base random seed. It ensures that the generated number is uniformly
 distributed across the specified range.</p>
 
-<p>Args:
-    min_: The lower limit of the range (inclusive).
-    max_: The upper limit of the range (inclusive). Must be greater than or equal to min.
-    random: Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    int: A random integer within the inclusive range [min, max].</p>
+<ul>
+<li><strong>min_:</strong>  The lower limit of the range (inclusive).</li>
+<li><strong>max_:</strong>  The upper limit of the range (inclusive). Must be greater than or equal to min.</li>
+<li><strong>random:</strong>  Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</li>
+</ul>
 
-<p>Raises:
-    ValueError: If the min parameter is greater than the max parameter.</p>
-
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>randint(1, 10, random=lambda: 0.0)
-          10
-      randint(1, 10, random=lambda: 0.5)
-          6
-      randint(1, 10, random=lambda: 0.99)
-          3
-      randint(5, 5, random=lambda: 0.5)
-          5
-      randint(3)  # doctest: +SKIP</p>
-    </blockquote>
-  </blockquote>
+  <p>int: A random integer within the inclusive range [min, max].</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>ValueError:</strong>  If the min parameter is greater than the max parameter.</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randint</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -485,35 +493,43 @@ distributed across the specified range.</p>
 It uses the randint function to generate a random index within the range
 of the sequence length.</p>
 
-<p>Args:
-    seq: The non-empty sequence from which to select a random element.
-    random: Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Sized: The randomly selected element from the sequence.</p>
+<ul>
+<li><strong>seq:</strong>  The non-empty sequence from which to select a random element.</li>
+<li><strong>random:</strong>  Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</li>
+</ul>
 
-<p>Raises:
-    IndexError: When the sequence provided is empty</p>
-
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>choice([10, 20, 30], random=lambda: 0.0)
-          10
-      choice([10, 20, 30], random=lambda: 0.5)
-          20
-      choice([10, 20, 30], random=lambda: 0.99)
-          30
-      choice("abc", random=lambda: 0.5)
-          'b'
-      choice([], random=lambda: 0.5)
-          Traceback (most recent call last):
-              ...
-          IndexError: Cannot choose from an empty sequence</p>
-    </blockquote>
-  </blockquote>
+  <p>Sized: The randomly selected element from the sequence.</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>IndexError:</strong>  When the sequence provided is empty</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">choice</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">choice</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">choice</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">)</span>
+<span class="go">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">choice</span><span class="p">(</span><span class="s2">&quot;abc&quot;</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">&#39;b&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">choice</span><span class="p">([],</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">IndexError</span>: <span class="n">Cannot choose from an empty sequence</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -588,40 +604,48 @@ the start, stop, and step parameters. If only one argument is provided, it
 treats it as the stop value and starts from 1 with a step of 1. If no arguments
 are provided, it returns a random integer from the range 0-9.</p>
 
-<p>Args:
-    start: The start of the range. Default is 1.
-    stop: The end of the range. Default is the start value.
-    step: The step value for the range. Default is 1.
-    random: Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    int: A randomly selected element from the specified range.</p>
+<ul>
+<li><strong>start:</strong>  The start of the range. Default is 1.</li>
+<li><strong>stop:</strong>  The end of the range. Default is the start value.</li>
+<li><strong>step:</strong>  The step value for the range. Default is 1.</li>
+<li><strong>random:</strong>  Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</li>
+</ul>
 
-<p>Raises:
-    ValueError: If the range is empty or step is zero
-    ValueError: If the stop value is less than the start value</p>
-
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>randrange(1, 10, random=lambda: 0.0)
-          1
-      randrange(1, 10, random=lambda: 0.5)
-          6
-      randrange(1, 10, random=lambda: 0.99)
-          10
-      randrange(5, random=lambda: 0.0)
-          1
-      randrange(1, 10, step=2, random=lambda: 0.5)
-          5
-      randrange(10, 1)  # doctest: +IGNORE_EXCEPTION_DETAIL
-          Traceback (most recent call last):
-              ...
-          ValueError: Stop value cannot be less than start value</p>
-    </blockquote>
-  </blockquote>
+  <p>int: A randomly selected element from the specified range.</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>ValueError:</strong>  If the range is empty or step is zero</li>
+<li><strong>ValueError:</strong>  If the stop value is less than the start value</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">)</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randrange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">randrange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">Stop value cannot be less than start value</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -685,37 +709,42 @@ are provided, it returns a random integer from the range 0-9.</p>
 shuffles its elements in-place using the Fisher-Yates algorithm. The original
 sequence is modified, and no new sequence is created.</p>
 
-<p>Args:
-    seq: The sequence to be shuffled.
-    random: Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    None: The original sequence is modified in-place.</p>
+<ul>
+<li><strong>seq:</strong>  The sequence to be shuffled.</li>
+<li><strong>random:</strong>  Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</li>
+</ul>
 
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>lst = [1, 2, 3, 4, 5]
-      _r = iter([0.0, 0.5, 0.0, 0.5])
-      shuffle(lst, random=lambda: next(_r, 0.0))
-      lst
-          [4, 2, 5, 3, 1]
-      lst = [10, 20]
-      shuffle(lst, random=lambda: 0.0)
-      lst
-          [20, 10]
-      lst = [10, 20]
-      shuffle(lst, random=lambda: 0.5)
-      lst
-          [10, 20]
-      lst = []
-      shuffle(lst, random=lambda: 0.5)
-      lst
-          []</p>
-    </blockquote>
-  </blockquote>
+  <p>None: The original sequence is modified in-place.</p>
+</blockquote>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_r</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shuffle</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">_r</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span>
+<span class="go">[4, 2, 5, 3, 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shuffle</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span>
+<span class="go">[20, 10]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shuffle</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span>
+<span class="go">[10, 20]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shuffle</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lst</span>
+<span class="go">[]</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -794,42 +823,50 @@ sequence is modified, and no new sequence is created.</p>
 number k as input, and returns a new list containing k unique elements chosen
 randomly from the population. The original population sequence is not modified.</p>
 
-<p>Args:
-    population: The sequence from which to select elements.
-    k: The number of elements to select. Must be less than or equal to the
-       length of the population.
-    random: Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    list: A new list containing k unique elements randomly selected from the population.</p>
+<ul>
+<li><strong>population:</strong>  The sequence from which to select elements.</li>
+<li><strong>k:</strong>  The number of elements to select. Must be less than or equal to the
+length of the population.</li>
+<li><strong>random:</strong>  Optional parameters for generating random dependency functions, default to random() functions generated using os.urandom()</li>
+</ul>
 
-<p>Raises:
-    TypeError: If population is not a Sequence
-    ValueError: If k is greater than the length of the population.</p>
-
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>_r = iter([0.0, 0.5, 0.0])
-      sample([1, 2, 3], 2, random=lambda: next(_r, 0.0))
-          [1, 2]
-      _r = iter([0.0, 0.5, 0.0])
-      sample([1, 2, 3], 3, random=lambda: next(_r, 0.0))
-          [1, 2, 3]
-      sample([42], 1, random=lambda: 0.0)
-          [42]
-      sample([1, 2], 3, random=lambda: 0.0)
-          Traceback (most recent call last):
-              ...
-          ValueError: Sample size larger than population
-      sample(42, 1)  # doctest: +IGNORE_EXCEPTION_DETAIL
-          Traceback (most recent call last):
-              ...
-          TypeError: Population must be a sequence</p>
-    </blockquote>
-  </blockquote>
+  <p>list: A new list containing k unique elements randomly selected from the population.</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>TypeError:</strong>  If population is not a Sequence</li>
+<li><strong>ValueError:</strong>  If k is greater than the length of the population.</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">_r</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">_r</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="go">[1, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_r</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">_r</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="go">[1, 2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="p">([</span><span class="mi">42</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="go">[42]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">Sample size larger than population</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">TypeError</span>: <span class="n">Population must be a sequence</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 

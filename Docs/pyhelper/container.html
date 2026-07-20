@@ -109,8 +109,8 @@ Copyright (C)</p>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="c1">#       |__/           |_|</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1">#</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># Pyhelper - Packages that provide more helper tools for Python</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2023-2024   Gao Yuhan(高宇涵)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># PyHelper - Packages that provide more helper tools for Python</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2026-2030   Weixu Zheng(郑维序)</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="c1">#</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="c1"># This library is free software; you can redistribute it and/or</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="c1"># modify it under the terms of the GNU Library General Public</span>
@@ -121,7 +121,7 @@ Copyright (C)</p>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="c1"># DON&#39;T EVEN HAVE A PERMIT TOO!</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1">#</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># Gao Yuhan(高宇涵)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># Weixu Zheng(郑维序)</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="c1"># anocode38@88.com</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="c1"># nanocode38</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>
@@ -639,58 +639,60 @@ Copyright (C)</p>
 
             <div class="docstring"><p>A sorted list class that inherits from UserList.</p>
 
-<p>Args:
-    data: An optional iterable of elements to initialize the list with.
-    key: An optional function that takes an element as input and returns a value to sort by. Defaults to lambda x: x.</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Examples:</p>
+<ul>
+<li><strong>data:</strong>  An optional iterable of elements to initialize the list with.</li>
+<li><strong>key:</strong>  An optional function that takes an element as input and returns a value to sort by. Defaults to lambda x: x.</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>sorted_list = SortedList([3, 1, 2])
-      sorted_list
-          SortedList([1, 2, 3])
-      str(sorted_list)
-          'SortedList([1, 2, 3])'
-      1 in sorted_list
-          True
-      4 in sorted_list
-          False
-      sorted_list[0]
-          1
-      sorted_list[1]
-          2
-      sorted_list[2]
-          3
-      sorted_list[3]
-          Traceback (most recent call last):
-          ...
-          IndexError: sorted_list index out of range
-      sorted_list[::-1]
-          SortedList([1, 2, 3])
-      sorted_list[0] = 9
-      sorted_list
-          SortedList([2, 3, 9])
-      sorted_list[::-1]
-          SortedList([2, 3, 9])
-      sorted_list += [4, 5, 6]
-      sorted_list
-          SortedList([2, 3, 4, 5, 6, 9])
-      sorted_list + [7, 8, 9]
-          SortedList([2, 3, 4, 5, 6, 7, 8, 9, 9])
-      sorted_list + 1
-          SortedList([1, 2, 3, 4, 5, 6, 9])
-      sorted_list += 1
-      sorted_list
-          SortedList([1, 2, 3, 4, 5, 6, 9])
-      sorted_list * 2
-          SortedList([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 9, 9])
-      sorted_list *= 2
-      sorted_list
-          SortedList([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 9, 9])</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">=</span> <span class="n">SortedList</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([1, 2, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">sorted_list</span><span class="p">)</span>
+<span class="go">&#39;SortedList([1, 2, 3])&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="ow">in</span> <span class="n">sorted_list</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">4</span> <span class="ow">in</span> <span class="n">sorted_list</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">IndexError</span>: <span class="n">sorted_list index out of range</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">SortedList([1, 2, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([2, 3, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">SortedList([2, 3, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([2, 3, 4, 5, 6, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">+</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="go">SortedList([2, 3, 4, 5, 6, 7, 8, 9, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="go">SortedList([1, 2, 3, 4, 5, 6, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([1, 2, 3, 4, 5, 6, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="go">SortedList([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 9, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">*=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 9, 9])</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -758,21 +760,23 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Insert elements into an ordered list to keep the sorted_list organized        Args:</p>
 
-<p>Args:
-    item: Elements that need to be inserted</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Examples:</p>
+<ul>
+<li><strong>item:</strong>  Elements that need to be inserted</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>sorted_list = SortedList([1, 2, 4])
-      sorted_list.add(5)
-      sorted_list.add(3)
-      sorted_list
-          SortedList([1, 2, 3, 4, 5])</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">=</span> <span class="n">SortedList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([1, 2, 3, 4, 5])</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -804,8 +808,11 @@ Copyright (C)</p>
             <div class="docstring"><p>The secondary method is equivalent to the add() method, just to maintain consistency with the list class, please avoid using it.
 For detailed documentation, see the add() method.</p>
 
-<p>Args:
-    item: Elements that need to be inserted</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>item:</strong>  Elements that need to be inserted</li>
+</ul>
 </div>
 
 
@@ -864,22 +871,24 @@ For detailed documentation, see the add() method.</p>
             <div class="docstring"><p>A method that remains forward compatible should use the add() method.
 The index parameter of this method is useless and only takes up place.</p>
 
-<p>Args:
-    index: Useless, to maintain forward compatible placeholder parameters
-    item: Data to be inserted</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Examples:</p>
+<ul>
+<li><strong>index:</strong>  Useless, to maintain forward compatible placeholder parameters</li>
+<li><strong>item:</strong>  Data to be inserted</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>sorted_list = SortedList([1, 2, 4])
-      sorted_list.insert(None, 5)
-      sorted_list.insert(None, 3)
-      sorted_list
-          SortedList([1, 2, 3, 4, 5])</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">=</span> <span class="n">SortedList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([1, 2, 3, 4, 5])</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -920,24 +929,29 @@ The index parameter of this method is useless and only takes up place.</p>
 
             <div class="docstring"><p>Remove and return the element at the given index.</p>
 
-<p>Args:
-    i: Useless, used to placeholder to keep it consistent with the list, use the default value.</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Elements that are popped up</p>
+<ul>
+<li><strong>i:</strong>  Useless, used to placeholder to keep it consistent with the list, use the default value.</li>
+</ul>
 
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>sorted_list = SortedList([1, 2, 3])
-      sorted_list.pop()
-          3
-      sorted_list
-          SortedList([1, 2])</p>
-    </blockquote>
-  </blockquote>
+  <p>Elements that are popped up</p>
+</blockquote>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">=</span> <span class="n">SortedList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([1, 2])</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -970,17 +984,16 @@ The index parameter of this method is useless and only takes up place.</p>
 
             <div class="docstring"><p>Clear all element in the list.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>sorted_list = SortedList([1, 2, 3])
-      sorted_list.clear()
-      sorted_list
-          SortedList([])</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span> <span class="o">=</span> <span class="n">SortedList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_list</span>
+<span class="go">SortedList([])</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1010,8 +1023,11 @@ The index parameter of this method is useless and only takes up place.</p>
 
             <div class="docstring"><p>Return a shallow copy of the list.</p>
 
-<p>Returns:
-    A shallow copy of the list.</p>
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>A shallow copy of the list.</p>
+</blockquote>
 </div>
 
 
@@ -1063,8 +1079,11 @@ The index parameter of this method is useless and only takes up place.</p>
             <div class="docstring"><p>The secondary method is equivalent to the add() method, just to maintain consistency with the list class, please avoid using it.
 For detailed documentation, see the add() method.</p>
 
-<p>Args:
-    other: Elements that need to be inserted</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>other:</strong>  Elements that need to be inserted</li>
+</ul>
 </div>
 
 
@@ -1118,20 +1137,19 @@ For detailed documentation, see the add() method.</p>
 The construction method of this primitive ancestor is the same as tuple, but the tuples will be sorted during initialization.
 All elements in this ancestor must be hashable, otherwise a TypeError exception will be thrown</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>sorted_tuple = SortedTuple([3, 1, 2])
-      sorted_tuple
-          SortedTuple([1, 2, 3])
-      SortedTuple([1, [2], 3])
-          Traceback (most recent call last):
-              ...
-          TypeError: SortedTuple elements must be hashable</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_tuple</span> <span class="o">=</span> <span class="n">SortedTuple</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted_tuple</span>
+<span class="go">SortedTuple([1, 2, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">SortedTuple</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">TypeError</span>: <span class="n">SortedTuple elements must be hashable</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 

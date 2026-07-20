@@ -163,8 +163,8 @@ Copyright (C)</p>
 </span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="c1">#  |_|  \_, |_||_\___|_| .__/\___|_|</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="c1">#       |__/           |_|</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1"># Pyhelper - Packages that provide more helper tools for Python</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># Copyright (C) 2023-2024   Gao Yuhan(高宇涵)</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1"># PyHelper - Packages that provide more helper tools for Python</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># Copyright (C) 2026-2030   Weixu Zheng(郑维序)</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1">#</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="c1"># This library is free software; you can redistribute it and/or</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="c1"># modify it under the terms of the GNU Library Public</span>
@@ -174,7 +174,7 @@ Copyright (C)</p>
 </span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="c1"># DON&#39;T EVEN HAVE A PERMIT TOO!</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="c1">#</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="c1"># Gao Yuhan(高宇涵)</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="c1"># Weixu Zheng(郑维序)</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1"># nanocode38@88.com</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># nanocode38</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>
@@ -738,12 +738,18 @@ Copyright (C)</p>
 
             <div class="docstring"><p>A class to manage a timer with the option to execute a command after the timer finishes.</p>
 
-<p>Args:
-    time_in_seconds: The time in Seconds the timer should run for. default: -1, It's infinite
-    command: The command to execute after the timer finishes. default: None</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Attributes:
-    time_in_seconds (float): The time in Seconds the timer should run for.</p>
+<ul>
+<li><strong>time_in_seconds:</strong>  The time in Seconds the timer should run for. default: -1, It's infinite</li>
+<li><strong>command:</strong>  The command to execute after the timer finishes. default: None</li>
+</ul>
+
+<h6 id="attributes">Attributes:</h6>
+
+<ul>
+<li><strong>time_in_seconds (float):</strong>  The time in Seconds the timer should run for.</li>
+</ul>
 </div>
 
 
@@ -861,25 +867,27 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Start the timer with the option to change the time in Seconds.</p>
 
-<p>Attributes:
-    new_time_in_seconds: The start time of the timer, defaults to the value of time.time()</p>
+<h6 id="attributes">Attributes:</h6>
 
-<p>Examples:</p>
+<ul>
+<li><strong>new_time_in_seconds:</strong>  The start time of the timer, defaults to the value of time.time()</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>t = Timer(5)
-      t.is_running
-          False
-      t.start()
-      t.is_running
-          True
-      t.start(10)
-      t.time_in_seconds
-          10</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">time_in_seconds</span>
+<span class="go">10</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -920,18 +928,17 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Update the timer's saved time.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>t = Timer(0)
-      t.start(0)
-      t.update()
-      t.is_running
-          False</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">False</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -965,18 +972,17 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Pause the timer.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>t = Timer(10)
-      t.start()
-      t.pause()
-      t.is_running
-          False</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">False</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1012,19 +1018,18 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Resume the timer.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>t = Timer(10)
-      t.start()
-      t.pause()
-      t.go_on()
-      t.is_running
-          True</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">go_on</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">True</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1073,29 +1078,34 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Get the timer's saved time, updating it if the timer is running.</p>
 
-<p>Attributes:
-    number_of_reserved_bits: Returns the number of digits retained in the value</p>
+<h6 id="attributes">Attributes:</h6>
 
-<p>Returns:
-    Timer's saved time</p>
+<ul>
+<li><strong>number_of_reserved_bits:</strong>  Returns the number of digits retained in the value</li>
+</ul>
 
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>t = Timer(-1)
-      t.start()
-      t.pause()
-      0 &lt;= t.get_time() &lt; 0.01
-          True
-      t = Timer(-1)
-      t.start()
-      t.pause()
-      t.get_time(number_of_reserved_bits=0)
-          0.0</p>
-    </blockquote>
-  </blockquote>
+  <p>Timer's saved time</p>
+</blockquote>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="o">.</span><span class="n">get_time</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.01</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">get_time</span><span class="p">(</span><span class="n">number_of_reserved_bits</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">0.0</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1136,21 +1146,20 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Stop the timer and execute the command if provided.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>results = []
-      t = Timer(0, command=lambda: results.append("done"))
-      t.start(0)
-      t.update()
-      results
-          ['done']
-      t.is_running
-          False</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;done&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
+<span class="go">[&#39;done&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">False</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1276,11 +1285,17 @@ Copyright (C)</p>
             <div class="docstring"><p>A class to create a count-up timer that can be paused and resumed.
 This class is a subclass of the Timer class.</p>
 
-<p>Args:
-    start_time: The start time of the timer, in Seconds, Default 0.0</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Attributes:
-    is_pause: A boolean indicating whether the timer is paused.</p>
+<ul>
+<li><strong>start_time:</strong>  The start time of the timer, in Seconds, Default 0.0</li>
+</ul>
+
+<h6 id="attributes">Attributes:</h6>
+
+<ul>
+<li><strong>is_pause:</strong>  A boolean indicating whether the timer is paused.</li>
+</ul>
 </div>
 
 
@@ -1391,19 +1406,18 @@ This class is a subclass of the Timer class.</p>
 
             <div class="docstring"><p>Start the timer.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>timer = CountUpTimer()
-      timer.start()
-      timer.is_running
-          True
-      timer.is_pause
-          True</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountUpTimer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">is_pause</span>
+<span class="go">True</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1460,26 +1474,31 @@ This class is a subclass of the Timer class.</p>
 
             <div class="docstring"><p>Return the current time of the timer in the specified format.</p>
 
-<p>Args:
-    mode: The format of the time to be returned. If 'Seconds', return the time in Seconds. If 'HHMMSS',
-        return the time as HH:MM:SS.</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    If the mode is 'HHMMSS': str: The current time of the timer in the specified format.
-    Else: The current time of the timer in Seconds.</p>
+<ul>
+<li><strong>mode:</strong>  The format of the time to be returned. If 'Seconds', return the time in Seconds. If 'HHMMSS',
+return the time as HH:MM:SS.</li>
+</ul>
 
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>timer = CountUpTimer()
-      timer.get_time()
-          0.0
-      timer.get_time(mode="HHMMSS")
-          '00:00:00.0'</p>
-    </blockquote>
-  </blockquote>
+  <p>If the mode is 'HHMMSS': str: The current time of the timer in the specified format.
+  Else: The current time of the timer in Seconds.</p>
+</blockquote>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountUpTimer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">get_time</span><span class="p">()</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">get_time</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;HHMMSS&quot;</span><span class="p">)</span>
+<span class="go">&#39;00:00:00.0&#39;</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1513,18 +1532,17 @@ This class is a subclass of the Timer class.</p>
 
             <div class="docstring"><p>Stop the timer.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>timer = CountUpTimer()
-      timer.start()
-      timer.stop()
-      timer.is_running
-          False</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountUpTimer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">False</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1650,22 +1668,24 @@ This class is a subclass of the Timer class.</p>
             <div class="docstring"><p>A class to create a count-up timer that can be paused and resumed.
 This class is a subclass of the Timer class.</p>
 
-<p>Args:
-    str_start_time: String in format HHMMSS, countdown time</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Examples:</p>
+<ul>
+<li><strong>str_start_time:</strong>  String in format HHMMSS, countdown time</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>timer = CountDownTimer("00:01:00.0")
-      timer.seconds
-          60.0
-      timer = CountDownTimer("01:30:20.5")
-      timer.seconds
-          5420.5</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountDownTimer</span><span class="p">(</span><span class="s2">&quot;00:01:00.0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">seconds</span>
+<span class="go">60.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountDownTimer</span><span class="p">(</span><span class="s2">&quot;01:30:20.5&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">seconds</span>
+<span class="go">5420.5</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1733,17 +1753,16 @@ This class is a subclass of the Timer class.</p>
 
             <div class="docstring"><p>Start the timer.</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>timer = CountDownTimer("00:00:10.0")
-      timer.start()
-      timer.timer.is_running
-          True</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountDownTimer</span><span class="p">(</span><span class="s2">&quot;00:00:10.0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">True</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1870,29 +1889,34 @@ This class is a subclass of the Timer class.</p>
 
             <div class="docstring"><p>Return the current time of the timer in the specified format.</p>
 
-<p>Args:
-    mode: The format of the time to be returned. If 'Seconds', return the time in Seconds. If 'HHMMSS',
-    return the time as HH:MM:SS.</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    If the mode is 'HHMMSS': str: The current time of the timer in the specified format.
-    Else: The current time of the timer in Seconds.</p>
+<ul>
+<li><strong>mode:</strong>  The format of the time to be returned. If 'Seconds', return the time in Seconds. If 'HHMMSS',</li>
+<li><strong>return the time as HH:</strong> MM:SS.</li>
+</ul>
 
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>timer = CountDownTimer("00:00:10.0")
-      timer.get_time()
-          10.0
-      timer.get_time(mode="HHMMSS")
-          '00:00:10.0'
-      timer = CountDownTimer("01:30:20.5")
-      timer.get_time()
-          5420.5</p>
-    </blockquote>
-  </blockquote>
+  <p>If the mode is 'HHMMSS': str: The current time of the timer in the specified format.
+  Else: The current time of the timer in Seconds.</p>
+</blockquote>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountDownTimer</span><span class="p">(</span><span class="s2">&quot;00:00:10.0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">get_time</span><span class="p">()</span>
+<span class="go">10.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">get_time</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;HHMMSS&quot;</span><span class="p">)</span>
+<span class="go">&#39;00:00:10.0&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountDownTimer</span><span class="p">(</span><span class="s2">&quot;01:30:20.5&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">get_time</span><span class="p">()</span>
+<span class="go">5420.5</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1925,18 +1949,17 @@ This class is a subclass of the Timer class.</p>
 
             <div class="docstring"><p>Stop the Timer</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>timer = CountDownTimer("00:00:10.0")
-      timer.start()
-      timer.stop()
-      timer.timer.is_running
-          False</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">CountDownTimer</span><span class="p">(</span><span class="s2">&quot;00:00:10.0&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">is_running</span>
+<span class="go">False</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -1978,9 +2001,12 @@ This class is a subclass of the Timer class.</p>
 
             <div class="docstring"><p>The function used to display help text for the game</p>
 
-<p>Args:
-    help_text: Help text to display
-    title: popup title, Default: 'Game Help'</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>help_text:</strong>  Help text to display</li>
+<li><strong>title:</strong>  popup title, Default: 'Game Help'</li>
+</ul>
 </div>
 
 

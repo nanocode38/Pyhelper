@@ -214,8 +214,8 @@ Copyright (C)</p>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="c1">#       |__/           |_|</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1">#</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># Pyhelper - Packages that provide more helper tools for Python</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2023-2024   Gao Yuhan(高宇涵)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># PyHelper - Packages that provide more helper tools for Python</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2026-2030   Weixu Zheng(郑维序)</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="c1">#</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="c1"># This library is free software; you can redistribute it and/or</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="c1"># modify it under the terms of the GNU Library Public</span>
@@ -225,8 +225,8 @@ Copyright (C)</p>
 </span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="c1"># DON&#39;T EVEN HAVE A PERMIT TOO!</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="c1">#</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1"># Gao Yuhan(高宇涵)</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># nanocode24@outlook.com</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1"># Weixu Zheng(郑维序)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># nanocode38@88.com</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="c1"># nanocode38</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">A helper function library for Tcl Tkinter</span>
@@ -1313,15 +1313,21 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Shake the Tkinter window</p>
 
-<p>Args:
-    window: , needs to have winfo_x(), winfo_y(), update() and geometr() methods
-    dire: Shaking Direction, can be 'vertical' or 'horizontal'
-    jitter_time: Total duration of the shaking effect, in Seconds, integer
-    jitter_count: Number of shakes, up and down count as two, integer
-    amplitude: Amplitude of the shake, in pixels, integer</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Raises:
-    ValueError: When dire is not 'vertical' or 'horizontal'</p>
+<ul>
+<li><strong>window:</strong>  , needs to have winfo_x(), winfo_y(), update() and geometr() methods</li>
+<li><strong>dire:</strong>  Shaking Direction, can be 'vertical' or 'horizontal'</li>
+<li><strong>jitter_time:</strong>  Total duration of the shaking effect, in Seconds, integer</li>
+<li><strong>jitter_count:</strong>  Number of shakes, up and down count as two, integer</li>
+<li><strong>amplitude:</strong>  Amplitude of the shake, in pixels, integer</li>
+</ul>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>ValueError:</strong>  When dire is not 'vertical' or 'horizontal'</li>
+</ul>
 </div>
 
 
@@ -1357,9 +1363,12 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Keep windows updated while the program sleeps</p>
 
-<p>Args:
-    windows: Windows that need to be kept updated
-    wait_time: Time to sleep(Seconds)</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>windows:</strong>  Windows that need to be kept updated</li>
+<li><strong>wait_time:</strong>  Time to sleep(Seconds)</li>
+</ul>
 </div>
 
 
@@ -1483,20 +1492,26 @@ Copyright (C)</p>
 <p>This function generates a window prompting the user to input a password.
 It validates the entered password and performs actions based on the correctness of the input.</p>
 
-<p>Args:
-    password: The correct password string that the user needs to input.
-    title: The title of the password window (default is "Password").
-    prompt: The prompt text displayed in the window (default is "Please input your Password").
-    mask: mask: Must be keyword parameters, Optional character to mask the password input [e.g., '*' or None(for
-    no masking, default)].
-    error_message: Optional custom error message when the password is incorrect.
-                      If not provided, the window will shake to indicate an error.
-    topmost: Boolean indicating whether the window should stay on top of others (default is False).
-    parent: Parent Tkinter window for modal behavior. If None, creates standalone window.</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Returns <a href="#RetMode.SUCCESS">RetMode.SUCCESS</a> if the correct password is entered, <a href="#RetMode.USER_CANCEL">RetMode.USER_CANCEL</a> if canceled via button,
-    or <a href="#RetMode.WINDOW_CLOSE">RetMode.WINDOW_CLOSE</a> if closed via window controls.</p>
+<ul>
+<li><strong>password:</strong>  The correct password string that the user needs to input.</li>
+<li><strong>title:</strong>  The title of the password window (default is "Password").</li>
+<li><strong>prompt:</strong>  The prompt text displayed in the window (default is "Please input your Password").</li>
+<li><strong>mask:</strong>  mask: Must be keyword parameters, Optional character to mask the password input [e.g., '*' or None(for</li>
+<li>no masking, default)].</li>
+<li><strong>error_message:</strong>  Optional custom error message when the password is incorrect.
+If not provided, the window will shake to indicate an error.</li>
+<li><strong>topmost:</strong>  Boolean indicating whether the window should stay on top of others (default is False).</li>
+<li><strong>parent:</strong>  Parent Tkinter window for modal behavior. If None, creates standalone window.</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Returns <a href="#RetMode.SUCCESS">RetMode.SUCCESS</a> if the correct password is entered, <a href="#RetMode.USER_CANCEL">RetMode.USER_CANCEL</a> if canceled via button,
+  or <a href="#RetMode.WINDOW_CLOSE">RetMode.WINDOW_CLOSE</a> if closed via window controls.</p>
+</blockquote>
 
 <p>Functionality:</p>
 
@@ -1559,12 +1574,18 @@ It validates the entered password and performs actions based on the correctness 
 
             <div class="docstring"><p>Center your Tkinter window</p>
 
-<p>Args:
-    window: The Tkinter window to be centered
-    dire: The Direction of centering, can be 'all', 'vertical' or 'horizontal'</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Raises:
-    ValueError: When dire is not any one of 'all', 'vertical' or 'horizontal'</p>
+<ul>
+<li><strong>window:</strong>  The Tkinter window to be centered</li>
+<li><strong>dire:</strong>  The Direction of centering, can be 'all', 'vertical' or 'horizontal'</li>
+</ul>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>ValueError:</strong>  When dire is not any one of 'all', 'vertical' or 'horizontal'</li>
+</ul>
 </div>
 
 
@@ -1645,19 +1666,26 @@ It validates the entered password and performs actions based on the correctness 
 </span></pre></div>
 
 
-            <div class="docstring"><p>Window to set password.
-Args:
-    title: Main window title
-    prompt: The prompt text for entering password for the first time
-    prompt_again: The prompt text for entering password for the second time
-    mask: Must be keyword parameters, Optional character to mask the password input [e.g., '*' or None(for no masking, default)].
-    error_message: Optional custom error message when the password is incorrect.
-                   If not provided, the window will shake to indicate an error.
-    topmost: Boolean indicating whether the window should stay on top of others (default is False).
-    check_fun: Functions that check whether they comply with password specifications are the default constant true function</p>
+            <div class="docstring"><p>Window to set password.</p>
 
-<p>Returns:
-    A string, if the user closes the window (press Cancel or close key, it will return None)</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>title:</strong>  Main window title</li>
+<li><strong>prompt:</strong>  The prompt text for entering password for the first time</li>
+<li><strong>prompt_again:</strong>  The prompt text for entering password for the second time</li>
+<li><strong>mask:</strong>  Must be keyword parameters, Optional character to mask the password input [e.g., '*' or None(for no masking, default)].</li>
+<li><strong>error_message:</strong>  Optional custom error message when the password is incorrect.
+If not provided, the window will shake to indicate an error.</li>
+<li><strong>topmost:</strong>  Boolean indicating whether the window should stay on top of others (default is False).</li>
+<li><strong>check_fun:</strong>  Functions that check whether they comply with password specifications are the default constant true function</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>A string, if the user closes the window (press Cancel or close key, it will return None)</p>
+</blockquote>
 </div>
 
 
@@ -1997,51 +2025,53 @@ Args:
 <li><code>Rect(tk.Widget)</code>: Generates a Rect object for the specified Widget.</li>
 </ul>
 
-<p>Attributes:
-    x, y(left, top): The x, y position of top and left side
-    w, h(width, height): The width/height of the rect
-    right: The x position of the right side
-    bottom: The y position of the bottom side
-    centerx, centery : The x/y position of the rect center
-    center = (centerx, centery)
-    size = (w, h)
-    topleft = (left, top)
-    topright = (right, top)
-    bottomright = (right, bottom)
-    bottomleft = (left, bottom)
-    midleft = (left, centery)
-    midright = (right, centery)
-    midtop = (centerx, top)
-    midbottom = (centerx, bottom)</p>
+<h6 id="attributes">Attributes:</h6>
 
-<p>Examples:</p>
+<ul>
+<li><strong>x, y(left, top):</strong>  The x, y position of top and left side</li>
+<li><strong>w, h(width, height):</strong>  The width/height of the rect</li>
+<li><strong>right:</strong>  The x position of the right side</li>
+<li><strong>bottom:</strong>  The y position of the bottom side</li>
+<li><strong>centerx, centery :</strong>  The x/y position of the rect center</li>
+<li>center = (centerx, centery)</li>
+<li>size = (w, h)</li>
+<li>topleft = (left, top)</li>
+<li>topright = (right, top)</li>
+<li>bottomright = (right, bottom)</li>
+<li>bottomleft = (left, bottom)</li>
+<li>midleft = (left, centery)</li>
+<li>midright = (right, centery)</li>
+<li>midtop = (centerx, top)</li>
+<li>midbottom = (centerx, bottom)</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>r = Rect(10, 20, 30, 40)
-      r.x, r.y, r.w, r.h
-          (10, 20, 30, 40)
-      r.left, r.top, r.right, r.bottom
-          (10, 20, 40, 60)
-      r.width = 30
-      r.height = 30
-      r.size
-          (30, 30)
-      r.topleft = (5, 10)
-      r.bottomright
-          (35, 40)
-      r.center = (20, 30)
-      r.topleft
-          (5, 15)
-      r2 = r.copy()
-      r2.move(10, 10)
-          Rect(10, 10, 30, 30)
-      r2.move_ip(15, 25)
-      r2.topleft
-          (15, 25)</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">h</span>
+<span class="go">(10, 20, 30, 40)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">bottom</span>
+<span class="go">(10, 20, 40, 60)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">size</span>
+<span class="go">(30, 30)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">topleft</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">bottomright</span>
+<span class="go">(35, 40)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">topleft</span>
+<span class="go">(5, 15)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r2</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r2</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">Rect(10, 10, 30, 30)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r2</span><span class="o">.</span><span class="n">move_ip</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r2</span><span class="o">.</span><span class="n">topleft</span>
+<span class="go">(15, 25)</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -2710,24 +2740,29 @@ Args:
 
             <div class="docstring"><p>Convert pixels to font size</p>
 
-<p>Args:
-    pix: The number of pixes to be converted
-    font: The font to be used for conversion</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    A tuple of two integers representing the font size</p>
+<ul>
+<li><strong>pix:</strong>  The number of pixes to be converted</li>
+<li><strong>font:</strong>  The font to be used for conversion</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>A tuple of two integers representing the font size</p>
+</blockquote>
 
 <p>Note: This function creates a temporary Tk window</p>
 
-<p>Examples:</p>
+<h6 id="examples">Examples:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>pix_to_fontsize(100)  # doctest: +SKIP
-          (54, 54)</p>
-    </blockquote>
-  </blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">pix_to_fontsize</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="go">(54, 54)</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -2772,23 +2807,29 @@ Args:
 
             <div class="docstring"><p>Convert font size to pixels</p>
 
-<p>Args:
-    num: The number of font size to be converted
-    font: The font to be used for conversion</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    A tuple of two integers representing the pixels</p>
+<ul>
+<li><strong>num:</strong>  The number of font size to be converted</li>
+<li><strong>font:</strong>  The font to be used for conversion</li>
+</ul>
 
-<p>Note: This function creates a temporary Tk window
-Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>fontsize_to_pix(12)  # doctest: +SKIP
-          (14, 22)</p>
-    </blockquote>
-  </blockquote>
+  <p>A tuple of two integers representing the pixels</p>
+</blockquote>
+
+<p>Note: This function creates a temporary Tk window</p>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">fontsize_to_pix</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="go">(14, 22)</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 

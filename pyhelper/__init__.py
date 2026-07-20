@@ -8,8 +8,8 @@
 #       |__/           |_|
 
 #
-# Pyhelper - Packages that provide more helper tools for Python
-# Copyright (C) 2023-2024   Gao Yuhan(高宇涵)
+# PyHelper - Packages that provide more helper tools for Python
+# Copyright (C) 2026-2030  Weixu Zheng(郑维序)
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library Public
@@ -19,30 +19,33 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # DON'T EVEN HAVE A PERMIT TOO!
 #
-# Gao Yuhan(高宇涵)
+# Weixu Zheng(郑维序)
 # nanocode38@88.com
 # nanocode38
 
 """
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-PYHELPER--PyHelper--pyhelper
-# Pyhelper - Packages that provide more helper tools for Python
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.
------------------------------------------------------
-Pyhelper is a set of packages designed to make writing Python programs better.
+PyHelper is a set of packages designed to make writing Python programs better.
+
 It is built on Python 3.13 and contains a rich set of classes and functions.
-The package is highly portable and works perfectly on Windows
-Python packages containing all sorts of useful data structures, functions,
-classes, etc. that Python doesn't have
+The package is highly portable and works perfectly on Windows,
+providing all sorts of useful data structures, functions, classes, etc.
+that Python doesn't have.
 
-Because pypi is duplicated, this library on pypi is called nanocode38-pyhelper, but please still use pyhelper
-after downloading and importing.
+## Note on PyPI Name
 
-applied environment: Microsoft Windows 11, Python 3.8+
-Copyright (C)
-By nanocode38 nanocode38@88.com
-2025.03.02
+Because PyPI is duplicated, this library on PyPI is called
+`nanocode38-pyhelper`, but please still use `pyhelper` after
+downloading and importing.
+
+## Environment
+
+Microsoft Windows 11, Python 3.8+
+
+## Copyright
+
+Copyright (C) 2026-2030  Weixu Zheng (nanocode38)
+Email: nanocode38@88.com
+2026.07.20
 """
 
 import functools
@@ -57,7 +60,7 @@ from typing import Any, Callable, Generator
 from types import FrameType
 
 __author__ = "nanocode38"
-__version__ = "3.0.0"
+__version__ = "3.0.1"
 __all__ = [
     "get_version",
     "file_reopen",

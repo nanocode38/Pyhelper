@@ -8,8 +8,8 @@
 #       |__/           |_|
 
 #
-# Pyhelper - Packages that provide more helper tools for Python
-# Copyright (C) 2023-2024   Gao Yuhan(高宇涵)
+# PyHelper - Packages that provide more helper tools for Python
+# Copyright (C) 2026-2030   Weixu Zheng(郑维序)
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library Public
@@ -18,13 +18,13 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # DON'T EVEN HAVE A PERMIT TOO!
 #
-# Gao Yuhan(高宇涵)
+# Weixu Zheng(郑维序)
 # nanocode38@88.com
 # nanocode38
 """
 Widgets
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This module provides a number of efficient Pygame GUI components that help you develop Pygame games.
+This module provides a number of efficient PyGame GUI components that help you develop PyGame games.
 This module has the following classes:
 Animate: An animation class based on a series of loaded images
 TextButton: a _button created from text; no image can be specified
@@ -49,7 +49,7 @@ After checking the event, intervene and execute for the state of all components 
 Then, the update() method is called for the other components to update the screen
 Next, the component is drawn by calling the draw() method
 Finally, we refresh the screen using pghelper.display.update().
-See the Pyhelper documentation for detailed usage of all components:
+See the PyHelper documentation for detailed usage of all components:
 Or a docstring for the corresponding component class
 """
 

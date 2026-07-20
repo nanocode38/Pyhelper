@@ -8,8 +8,8 @@
 #       |__/           |_|
 
 #
-# Pyhelper - Packages that provide more helper tools for Python
-# Copyright (C) 2023-2024   Gao Yuhan(高宇涵)
+# PyHelper - Packages that provide more helper tools for Python
+# Copyright (C) 2026-2030  Weixu Zheng(郑维序)
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library General Public
@@ -20,7 +20,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # DON'T EVEN HAVE A PERMIT TOO!
 #
-# Gao Yuhan(高宇涵)
+# Weixu Zheng(郑维序)
 # nanocode38@88.com
 # nanocode38
 

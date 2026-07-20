@@ -137,7 +137,7 @@
                     <h1 class="modulename">
 <a href="./../../pyhelper.html">pyhelper</a><wbr>.<a href="./../gamehelpers.html">gamehelpers</a><wbr>.pghelper    </h1>
 
-                        <div class="docstring"><p>This is a collection of Pygame-based game development tool functions that rely on Python Pygame third-party libraries
+                        <div class="docstring"><p>This is a collection of Pygame-based game development tool functions that rely on Python PyGame third-party libraries
 Copyright (C)</p>
 </div>
 
@@ -156,7 +156,7 @@ Copyright (C)</p>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1">#</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># Pyhelper - Packages that provide more helper tools for Python</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2023-2024   Gao Yuhan(高宇涵)</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2026-2030   Weixu Zheng(郑维序)</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="c1">#</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="c1"># This library is free software; you can redistribute it and/or</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="c1"># modify it under the terms of the GNU Library General Public</span>
@@ -167,11 +167,11 @@ Copyright (C)</p>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="c1"># DON&#39;T EVEN HAVE A PERMIT TOO!</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1">#</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># Gao Yuhan(高宇涵)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># Weixu Zheng(郑维序)</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="c1"># nanocode38@88.com</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="c1"># nanocode38</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">This is a collection of Pygame-based game development tool functions that rely on Python Pygame third-party libraries</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="sd">This is a collection of Pygame-based game development tool functions that rely on Python PyGame third-party libraries</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">Copyright (C)</span>
 </span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>
@@ -707,14 +707,20 @@ Copyright (C)</p>
 
             <div class="docstring"><p>This function processes a Sprite image into a set of loaded Surface objects</p>
 
-<p>Args:
-    image_path: the path to the total Sprite graph
-    width: The length of an image
-    height: The height of an image
-    num_of_image: The total number of photos</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    list: Surface objects for all images</p>
+<ul>
+<li><strong>image_path:</strong>  the path to the total Sprite graph</li>
+<li><strong>width:</strong>  The length of an image</li>
+<li><strong>height:</strong>  The height of an image</li>
+<li><strong>num_of_image:</strong>  The total number of photos</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>list: Surface objects for all images</p>
+</blockquote>
 </div>
 
 
@@ -761,11 +767,17 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Loading a series of images</p>
 
-<p>Args:
-    image_paths: A list of paths for a series of images</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    Iterator[pygame.Surface]: A list of loaded Surface objects</p>
+<ul>
+<li><strong>image_paths:</strong>  A list of paths for a series of images</li>
+</ul>
+
+<h6 id="returns">Returns:</h6>
+
+<blockquote>
+  <p>Iterator[pygame.Surface]: A list of loaded Surface objects</p>
+</blockquote>
 </div>
 
 
@@ -1020,10 +1032,11 @@ Your class must implement these methods</p>
 <pre><code>|   __init__(), update(), draw(), get_scene_key()
 </code></pre>
 
-<p>Other methods can be overridden if you wish:</p>
+<h6 id="other-methods-can-be-overridden-if-you-wish">Other methods can be overridden if you wish:</h6>
 
-<pre><code>| enter(), leave()
-</code></pre>
+<blockquote>
+  <p>| enter(), leave()</p>
+</blockquote>
 
 <p>You can add any additional methods that your class requires.
 Additionally, there are other methods to allow you to get or set info, or navigate to other scenes:</p>
@@ -1148,9 +1161,12 @@ implemented, then the null version in the Scene subclass will be used.
 
             <div class="docstring"><p>This method is called in every frame of the scene to handle events and key presses</p>
 
-<p>Args:
-    events: a list of events your method should handle.
-    key_pressed_list: a list of keys that are pressed (a Boolean for each key).</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>events:</strong>  a list of events your method should handle.</li>
+<li><strong>key_pressed_list:</strong>  a list of keys that are pressed (a Boolean for each key).</li>
+</ul>
 </div>
 
 
@@ -1183,8 +1199,11 @@ implemented, then the null version in the Scene subclass will be used.
 Should be overridden if you expect data when your scene is entered.
 Add any code you need to start or re-start the scene</p>
 
-<p>Args:
-    data: can be of any type agreed to by the old and new scenes</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>data:</strong>  can be of any type agreed to by the old and new scenes</li>
+</ul>
 </div>
 
 
@@ -1290,9 +1309,12 @@ Override this method, and add any code you need to clean up the scene before lea
 
             <div class="docstring"><p>Call this method whenever you want to go to a new scene</p>
 
-<p>Args:
-    next_scene_key: the scene key (string) of the scene to go to
-    data: any data you want sent to the next scene (defaults: None)</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>next_scene_key:</strong>  the scene key (string) of the scene to go to</li>
+<li><strong>data:</strong>  any data you want sent to the next scene (defaults: None)</li>
+</ul>
 </div>
 
 
@@ -1328,9 +1350,12 @@ Override this method, and add any code you need to clean up the scene before lea
 <p>The target scene must implement a method named: respond,
 it can return any info in any way the two scenes agree upon</p>
 
-<p>Args:
-    target_scene_key: the scene key (string) of the scene to ask for data
-    request_id: the data you want from the target scene</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>target_scene_key:</strong>  the scene key (string) of the scene to ask for data</li>
+<li><strong>request_id:</strong>  the data you want from the target scene</li>
+</ul>
 </div>
 
 
@@ -1367,10 +1392,13 @@ it can return any info in any way the two scenes agree upon</p>
 <p>The other scene must implement a method named:  receive().
 You can pass any info the two scenes agree upon</p>
 
-<p>Args:
-    target_scene_key: the scene key (string) of the scene to ask for data
-    send_id: the type of data you are sending the target scene
-    info: the actual data to send (can be any type)</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>target_scene_key:</strong>  the scene key (string) of the scene to ask for data</li>
+<li><strong>send_id:</strong>  the type of data you are sending the target scene</li>
+<li><strong>info:</strong>  the actual data to send (can be any type)</li>
+</ul>
 </div>
 
 
@@ -1406,9 +1434,12 @@ You can pass any info the two scenes agree upon</p>
 <p>The other scenes must implement a method named:  receive().
 You can pass any info that the sender and all other scenes agree upon</p>
 
-<p>Args:
-    send_id: the type of data you are sending the target scene
-    info: the actual data to send</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>send_id:</strong>  the type of data you are sending the target scene</li>
+<li><strong>info:</strong>  the actual data to send</li>
+</ul>
 </div>
 
 
@@ -1440,9 +1471,13 @@ You can pass any info that the sender and all other scenes agree upon</p>
             <div class="docstring"><p>Respond to a request for information from some other scene</p>
 
 <p>You must override this method if your scene expects to handle
-requests for information from other scenes via calls to:  request()
-Args:
-    request_id: identifier of what data to be sent back to the caller</p>
+requests for information from other scenes via calls to:  request()</p>
+
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>request_id:</strong>  identifier of what data to be sent back to the caller</li>
+</ul>
 </div>
 
 
@@ -1478,9 +1513,12 @@ Args:
 <p>You must override this method if your scene expects to receive information from
 other scenes sending information via calls to:  send()</p>
 
-<p>Args:
-    receive_id - an identifier for what type of information is being received
-    info - the information sent from another scene</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li>receive_id - an identifier for what type of information is being received</li>
+<li>info - the information sent from another scene</li>
+</ul>
 </div>
 
 
@@ -1519,10 +1557,13 @@ but only have the current level loaded.  As the player completes a level, you
 could do a remove_scene on the current level and do an add_scene on the
 next level, then do a goToScene on the new level.</p>
 
-<p>Args:
-    scene_key: a key to uniquely identify this scene
-    scene: an instance of the new scene to be added
-    (typically, you would instantiate the new scene, and pass in that reference to this call)</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>scene_key:</strong>  a key to uniquely identify this scene</li>
+<li><strong>scene:</strong>  an instance of the new scene to be added</li>
+<li>(typically, you would instantiate the new scene, and pass in that reference to this call)</li>
+</ul>
 </div>
 
 
@@ -1558,8 +1599,11 @@ The SceneMgr delays removing the scene until the next time through the main loop
 Therefore, it is safe to call to remove_scene from its own scene, if you immediately
 go to another scene.</p>
 
-<p>Args:
-    scene_key: the scene key (string) of the scene to remove</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>scene_key:</strong>  the scene key (string) of the scene to remove</li>
+</ul>
 </div>
 
 
@@ -1744,12 +1788,15 @@ go to another scene.</p>
 <p>The SceneMgr manages any number of scenes built as subclasses of the "Scene" class.
 For more details, see the "Scene" class.</p>
 
-<p>Args:
-    scenes: is a dictionary or list that consists of:
-        {<sceneKey>: <sceneObject>, <sceneKey>: <sceneObject>, ...} or [<sceneObject>, <sceneObject>, ...]
-          where each sceneObject is an object instantiated from a scene class
-          (For details on Scenes, see the Scene class)
-    fps - is the frames per second at which the program should run</p>
+<h6 id="arguments">Arguments:</h6>
+
+<ul>
+<li><strong>scenes:</strong>  is a dictionary or list that consists of:
+{<sceneKey>: <sceneObject>, <sceneKey>: <sceneObject>, ...} or [<sceneObject>, <sceneObject>, ...]
+  where each sceneObject is an object instantiated from a scene class
+  (For details on Scenes, see the Scene class)</li>
+<li>fps - is the frames per second at which the program should run</li>
+</ul>
 
 <p>Based on the concept of a "Scene Manager" by Blake O'Hare of Nerd Paradise</p>
 </div>
@@ -1923,9 +1970,12 @@ All scenes must implement the following methods (polymorphism):
 |   update()  # called in every frame
 |   draw()          # called in every frame</p>
 
-<p>The following methods can be implemented in a scene:
-    |   enter()  # called once whenever the scene is entered
-    |   leave()  # called once whenever the scene is left</p>
+<h6 id="the-following-methods-can-be-implemented-in-a-scene">The following methods can be implemented in a scene:</h6>
+
+<blockquote>
+  <p>|   enter()  # called once whenever the scene is entered
+  |   leave()  # called once whenever the scene is left</p>
+</blockquote>
 
 <p>If any is not implemented, then the version in the Scene base class,
 which only performs a pass statement, will be used.</p>

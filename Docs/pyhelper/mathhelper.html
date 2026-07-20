@@ -94,8 +94,8 @@ Copyright (C)</p>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="c1">#       |__/           |_|</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1">#</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># Pyhelper - Packages that provide more helper tools for Python</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2023-2024   Gao Yuhan(高宇涵)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1"># PyHelper - Packages that provide more helper tools for Python</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1"># Copyright (C) 2026-2030  Weixu Zheng(郑维序)</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="c1">#</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="c1"># This library is free software; you can redistribute it and/or</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="c1"># modify it under the terms of the GNU Library General Public</span>
@@ -106,7 +106,7 @@ Copyright (C)</p>
 </span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="c1"># DON&#39;T EVEN HAVE A PERMIT TOO!</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="c1">#</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># Gao Yuhan(高宇涵)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="c1"># Weixu Zheng(郑维序)</span>
 </span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="c1"># nanocode38@88.com</span>
 </span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="c1"># nanocode38</span>
 </span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>
@@ -349,21 +349,26 @@ Copyright (C)</p>
 
             <div class="docstring"><p>A function that calculates PI according to a formula</p>
 
-<p>Args:
-    count: Calculate the precision of PI, the higher the value, the slower the calculation speed, the higher the precision</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    The result of the calculation</p>
+<ul>
+<li><strong>count:</strong>  Calculate the precision of PI, the higher the value, the slower the calculation speed, the higher the precision</li>
+</ul>
 
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>calculate_pi(100_000)  # doctest: +ELLIPSIS
-          3.141...</p>
-    </blockquote>
-  </blockquote>
+  <p>The result of the calculation</p>
+</blockquote>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">calculate_pi</span><span class="p">(</span><span class="mi">100_000</span><span class="p">)</span>  <span class="c1"># doctest: +ELLIPSIS</span>
+<span class="go">3.141...</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -428,35 +433,43 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Calculate the Fibonacci sequence for the given number.</p>
 
-<p>Args:
-    number: The number in the Fibonacci sequence to be calculated.</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    The Fibonacci sequence for the given number.</p>
+<ul>
+<li><strong>number:</strong>  The number in the Fibonacci sequence to be calculated.</li>
+</ul>
 
-<p>Raises:
-    TypeError: If the input is not an int.
-    ValueError: If the input is a negative int.</p>
-
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>fibonacci(1)
-          1
-      fibonacci(10)
-          55
-      fibonacci(1.5)  # doctest: +IGNORE_EXCEPTION_DETAIL
-          Traceback (most recent call last):
-              ...
-          TypeError: Please pass an int argument, not a float!
-      fibonacci(-1)  # doctest: +IGNORE_EXCEPTION_DETAIL
-          Traceback (most recent call last):
-              ...
-          ValueError: Please pass a positive int argument!</p>
-    </blockquote>
-  </blockquote>
+  <p>The Fibonacci sequence for the given number.</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>TypeError:</strong>  If the input is not an int.</li>
+<li><strong>ValueError:</strong>  If the input is a negative int.</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">55</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>  <span class="c1"># doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">TypeError</span>: <span class="n">Please pass an int argument, not a float!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fibonacci</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># doctest: +IGNORE_EXCEPTION_DETAIL</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">Please pass a positive int argument!</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
@@ -552,67 +565,75 @@ Copyright (C)</p>
 
             <div class="docstring"><p>Check if the given number is a prime number.</p>
 
-<p>Args:
-    number: The number to be checked for primality.</p>
+<h6 id="arguments">Arguments:</h6>
 
-<p>Returns:
-    True if the number is prime, False otherwise.</p>
+<ul>
+<li><strong>number:</strong>  The number to be checked for primality.</li>
+</ul>
 
-<p>Raises:
-    TypeError: If the input is not an int.
-    ValueError: If the input is a negative int.</p>
-
-<p>Examples:</p>
+<h6 id="returns">Returns:</h6>
 
 <blockquote>
-  <blockquote>
-    <blockquote>
-      <p>is_prime(2)
-          True
-      is_prime(3)
-          True
-      is_prime(5)
-          True
-      is_prime(7)
-          True
-      is_prime(11)
-          True
-      is_prime(13)
-          True
-      is_prime(17)
-          True
-      is_prime(19)
-          True
-      is_prime(23)
-          True
-      is_prime(29)
-          True
-      is_prime(31)
-          True
-      is_prime(37)
-          True
-      is_prime(41)
-          True
-      is_prime(43)
-          True
-      is_prime(47)
-          True
-      is_prime(53)
-          True
-      is_prime(1)
-          False
-      is_prime(-1)
-          False
-      is_prime(105)
-          False
-      is_prime(292)
-          False
-      is_prime(63)
-          False
-      is_prime(39)
-          False</p>
-    </blockquote>
-  </blockquote>
+  <p>True if the number is prime, False otherwise.</p>
+</blockquote>
+
+<h6 id="raises">Raises:</h6>
+
+<ul>
+<li><strong>TypeError:</strong>  If the input is not an int.</li>
+<li><strong>ValueError:</strong>  If the input is a negative int.</li>
+</ul>
+
+<h6 id="examples">Examples:</h6>
+
+<blockquote>
+  <div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">29</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">31</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">41</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">43</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">47</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">53</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">105</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">292</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">63</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_prime</span><span class="p">(</span><span class="mi">39</span><span class="p">)</span>
+<span class="go">False</span>
+</code></pre>
+  </div>
 </blockquote>
 </div>
 
